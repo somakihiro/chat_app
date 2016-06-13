@@ -1,6 +1,6 @@
-const utils = {
+const Utils = {
   getShortDate(timestamp) {
-    const distance = Math.round( ( +new Date() - timestamp ) / 60000 )
+    const distance = Math.round((+new Date() - timestamp) / 60000)
     const date = new Date(timestamp)
 
     const hour = (`0${date.getHours()}`).slice(-2)
@@ -25,14 +25,14 @@ const utils = {
       59: '%distance minutes ago',
       118: 'an hour ago',
       1439: '%r hours ago',
-      2879: 'Yesterday at %h:%i',
+      2879: 'Yesterday at %h:%',
       14567: '%l at %h:%i',
     }
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
     const date = new Date(timestamp)
-    const distance = Math.round( ( +new Date() - timestamp ) / 60000 )
+    const distance = Math.round((+new Date() - timestamp) / 60000)
 
     let string
     for (const i in language) {
@@ -68,7 +68,7 @@ const utils = {
       .replace(/%y/i, year)
       .replace(/%h/i, hour)
       .replace(/%i/i, minutes)
-  }
+  },
 }
 
-export default utils;
+export default Utils

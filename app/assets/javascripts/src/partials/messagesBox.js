@@ -3,53 +3,53 @@ import MessagesStore from '../stores/messages'
 import UserStore from '../stores/user'
 import Utils from '../utils'
 
-const MessagesBox = React.createClass({
+class MessagesBox extends React.Component {
   getInitialState() {
-    return MessagesStore.getChatByUserID(MessagesStore.getOpenChatUserID);
+    return MessagesStore.getChatByUserID(MessagesStore.getOpenChatUserID)
   }
   render() {
-    const messagesLength = this.state.messages.length;
-    const currentUserID = UserStore.user.id;
+    const messagesLength = this.state.messages.length
+    const currentUserID = UserStore.user.id
 
     const messages = this.state.messages.map((message, index) => {
       const messageClasses = React.addons.classSet({
         'message-box__item': true,
         'message-box__item--from-current': message.from === currentUserID,
-        'clear': true
-      });
+        'clear': true,
+      }, )
 
       return (
           <li key={ message.timestamp + '-' + message.from } className={ messageClasses }>
-            <div className="message-box__item__contents">
+            <div className='message-box__item__contents'>
               { message.contents }
             </div>
           </li>
-        );
-    });
+        )
+    })
 
-    const lastMessage = this.state.messages[messagesLength -1];
+    const lastMessage = this.state.messages[messagesLength - 1]
 
     if (lastMessage.from === currentUserID) {
       if (this.state.lastAccess.recipient >= lastMessage.timestamp) {
-        const date = Utils.getShortDate(lastMessage.timestamp);
+        const date = Utils.getShortDate(lastMessage.timestamp)
         messages.push(
-            <li key="read" className="message-box__item message-box__item--read">
-              <div className="message-box__item__contents">
+            <li key='read' className='message-box__item message-box__item--read'>
+              <div className='message-box__item__contents'>
                 Read { date }
               </div>
             </li>
-          );
+          )
       }
     }
     return (
-        <div className="message-box">
-          <ul className="message-box__list">
+        <div className='message-box'>
+          <ul className='message-box__list'>
             { messages }
           </ul>
-          <Main />
+          <Main />,
         </div>
-      );
+      )
   }
-});
+}
 
-export default MessagesBox;
+export default MessagesBox

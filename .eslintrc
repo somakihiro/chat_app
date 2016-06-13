@@ -4,6 +4,12 @@
     "standard",
     "standard-react"
   ],
+  "parserOptions" : {
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  },
   "env"     : {
     "browser" : true
   },
