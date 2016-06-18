@@ -1,17 +1,18 @@
-import Header from '../partials/header'
-import UserList from '../partials/userList'
-import MessagesBox from '../partials/messagesBox'
+import React from 'react'
+import Header from '../src/partials/header'
+import UserList from '../src/partials/userList'
+import MessagesBox from '../src/partials/messagesBox'
 
-class Page extends React.Component {
+export default class Page extends React.Component {
   render() {
     return (
         <div className='app'>
-          <Header />,
-          <UserList />,
-          <MessagesBox />,
+          <Header />
+          <UserList />
+          <MessagesBox />
         </div>
       )
   }
 }
 
-React.render(<Page />, document.body)
+export default Page

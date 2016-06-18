@@ -1,14 +1,14 @@
 import ReactDecorator from '../base/react_decorator'
 import BaseRouter from '../base/router'
-import Main from '../components/messages/main'
+import Page from '../app'
 
 export default class CardRouter extends BaseRouter {
   register() {
-    this.route('/', this.decorateMain)
+    this.route('/', this.decoratePage)
   }
 
-  decorateMain(ctx, next) {
-    (new ReactDecorator()).decorate('react-main', Main)
+  decoratePage(ctx, next) {
+    (new ReactDecorator()).decorate('react-main', Page)
     next()
   }
 }

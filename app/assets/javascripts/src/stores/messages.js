@@ -27,6 +27,45 @@ const messages = {
       },
     ],
   },
+  3: {
+    user: {
+      read: true,
+      profilePicture: 'https://avatars3.githubusercontent.com/u/2955483?v=3&s=460',
+      name: 'Jilles Soeters',
+      id: 3,
+      status: 'online',
+    },
+    lastAccess: {
+      recipient: 1424352522000,
+      currentUser: 1424352522080,
+    },
+    messages: [
+      {
+        contents: 'Want a game of ping pong?',
+        from: 3,
+        timestamp: 1424352522000,
+      },
+    ],
+  },
+  4: {
+    user: {
+      name: 'Todd Motto',
+      id: 4,
+      profilePicture: 'https://avatars1.githubusercontent.com/u/1655968?v=3&s=460',
+      status: 'online',
+    },
+    lastAccess: {
+      recipient: 1424423579000,
+      currentUser: 1424423574000,
+    },
+    messages: [
+      {
+        contents: 'Please follow me on twitter I\'ll pay you',
+        timestamp: 1424423579000,
+        from: 4,
+      },
+    ],
+  },
 }
 
 const openChatID = parseInt(Object.keys(messages)[0], 10)
@@ -44,7 +83,7 @@ const MessagesStore = assign({}, EventEmitter.prototype, {
   getChatByUserID(id) {
     return messages[id]
   },
-  getAll() {
+  getAllChats() {
     return messages
   },
 })

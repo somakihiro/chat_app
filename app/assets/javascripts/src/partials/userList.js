@@ -1,9 +1,18 @@
+import React from 'react'
+import Update from 'react-addons-update'
+import classNames from 'classnames'
 import Utils from '../utils'
 import MessagesStore from '../stores/messages'
 import UserStore from '../stores/user'
 
-class UserList extends React.Component {
-  getInitialState() {
+export default class UserList extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = this.initialState
+  }
+
+  get initialState() {
     const allMessages = MessagesStore.getAllChats()
 
     const messageList = []
@@ -15,14 +24,14 @@ class UserList extends React.Component {
         lastMessage: item.messages[messagesLength - 1],
         lastAccess: item.lastAccess,
         user: item.user,
-      }, )
+      })
     }
-
     return {
       openChatID: MessagesStore.getOpenChatUserID(),
       messageList: messageList,
     }
   }
+
   render() {
     this.state.messageList.sort((a, b) => {
       if (a.lastMessage.timestamp > b.lastMessage.timestamp) {
@@ -56,17 +65,17 @@ class UserList extends React.Component {
 
       console.log(this.state.openChatID, message.user.id)
 
-      const itemClasses = React.addons.classSet({
+      const itemClasses = classNames({
         'user-list__item': true,
         'clear': true,
         'user-list__item--new': isNewMessage,
-        'user-list__item--active': this.state.openChatID === messages.user.id,
-      }, )
+        'user-list__item--active': this.state.openChatID === message.user.id,
+      })
 
       console.log(itemClasses)
 
       return (
-          <li className='{ itemClasses }' key='{ message.user.id }'>
+          <li className={ itemClasses } key={ message.user.id }>
             <div className='user-list__item__picture'>
               <img src={ message.user.profilePicture } />
             </div>

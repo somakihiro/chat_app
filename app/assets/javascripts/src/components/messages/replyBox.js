@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default class Main extends React.Component {
+export default class ReplyBox extends React.Component {
 
   static get defaultProps() {
     return {
@@ -34,4 +34,4 @@ export default class Main extends React.Component {
   }
 }
 
-export default Main
+export default ReplyBox

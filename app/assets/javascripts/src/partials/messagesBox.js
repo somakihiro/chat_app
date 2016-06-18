@@ -1,22 +1,31 @@
-import Main from '../components/messages/main'
+import React from 'react'
+import classNames from 'classNames'
+import ReplyBox from '../components/messages/replyBox'
 import MessagesStore from '../stores/messages'
 import UserStore from '../stores/user'
 import Utils from '../utils'
 
-class MessagesBox extends React.Component {
-  getInitialState() {
-    return MessagesStore.getChatByUserID(MessagesStore.getOpenChatUserID)
+export default class MessagesBox extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = this.initialState
   }
+
+  get initialState() {
+    return MessagesStore.getChatByUserID(MessagesStore.getOpenChatUserID())
+  }
+
   render() {
     const messagesLength = this.state.messages.length
     const currentUserID = UserStore.user.id
 
     const messages = this.state.messages.map((message, index) => {
-      const messageClasses = React.addons.classSet({
+      const messageClasses = classNames({
         'message-box__item': true,
         'message-box__item--from-current': message.from === currentUserID,
         'clear': true,
-      }, )
+      })
 
       return (
           <li key={ message.timestamp + '-' + message.from } className={ messageClasses }>
@@ -46,7 +55,7 @@ class MessagesBox extends React.Component {
           <ul className='message-box__list'>
             { messages }
           </ul>
-          <Main />,
+          <ReplyBox />,
         </div>
       )
   }
