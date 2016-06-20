@@ -1,7 +1,7 @@
 import React from 'react'
-import Header from '../src/partials/header'
-import UserList from '../src/partials/userList'
-import MessagesBox from '../src/partials/messagesBox'
+import Header from '../src/components/messages/header'
+import UserList from '../src/components/messages/userList'
+import MessagesBox from '../src/components/messages/messagesBox'
 
 class Page extends React.Component {
   render() {

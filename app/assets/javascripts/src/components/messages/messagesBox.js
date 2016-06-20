@@ -1,9 +1,9 @@
 import React from 'react'
 import classNames from 'classNames'
-import ReplyBox from '../components/messages/replyBox'
-import MessagesStore from '../stores/messages'
-import UserStore from '../stores/user'
-import Utils from '../utils'
+import ReplyBox from '../../components/messages/replyBox'
+import MessagesStore from '../../stores/messages'
+import UserStore from '../../stores/user'
+import Utils from '../../utils'
 
 class MessagesBox extends React.Component {
 

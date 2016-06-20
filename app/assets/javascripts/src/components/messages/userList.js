@@ -1,9 +1,9 @@
 import React from 'react'
 import classNames from 'classnames'
-import Utils from '../utils'
-import MessagesStore from '../stores/messages'
-import UserStore from '../stores/user'
-import MessagesAction from '../actions/messages'
+import Utils from '../../utils'
+import MessagesStore from '../../stores/messages'
+import UserStore from '../../stores/user'
+import MessagesAction from '../../actions/messages'
 
 class UserList extends React.Component {
 
