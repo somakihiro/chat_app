@@ -1,3 +1,5 @@
+import UserStore from '../stores/user'
+
 import Dispatcher from '../dispatcher'
 import {EventEmitter} from 'events'
 import assign from 'object-assign'
@@ -68,7 +70,7 @@ const messages = {
   },
 }
 
-const openChatID = parseInt(Object.keys(messages)[0], 10)
+var openChatID = parseInt(Object.keys(messages)[0], 10)
 
 const MessagesStore = assign({}, EventEmitter.prototype, {
   addChangeListener(callback) {
@@ -89,6 +91,26 @@ const MessagesStore = assign({}, EventEmitter.prototype, {
 })
 
 MessagesStore.dispatchToken = Dispatcher.register(payload => {
+  const actions = {
+    updateOpenChatID(payload) {
+      openChatID = payload.action.userID
+
+      MessagesStore.emit('change')
+    },
+    sendMessage(payload) {
+      const userID = payload.action.userID
+
+      messages[userID].messages.push({
+        contents: payload.action.message,
+        timestamp: payload.action.timestamp,
+        from: UserStore.user.id,
+      })
+
+      MessagesStore.emit('change')
+    },
+  }
+
+  actions[payload.action.type] && actions[payload.action.type](payload)
 })
 
 export default MessagesStore

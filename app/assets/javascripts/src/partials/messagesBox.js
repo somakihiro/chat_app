@@ -5,7 +5,7 @@ import MessagesStore from '../stores/messages'
 import UserStore from '../stores/user'
 import Utils from '../utils'
 
-export default class MessagesBox extends React.Component {
+class MessagesBox extends React.Component {
 
   constructor(props) {
     super(props)
@@ -13,7 +13,19 @@ export default class MessagesBox extends React.Component {
   }
 
   get initialState() {
+    return this.getStateFromStore()
+  }
+  getStateFromStore() {
     return MessagesStore.getChatByUserID(MessagesStore.getOpenChatUserID())
+  }
+  componentWillMount() {
+    MessagesStore.addChangeListener(this.onStoreChange.bind(this))
+  }
+  componentWillUnmount() {
+    MessagesStore.removeChangeListener(this.onStoreChange.bind(this))
+  }
+  onStoreChange() {
+    this.setState(this.getStateFromStore())
   }
 
   render() {
