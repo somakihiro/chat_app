@@ -3,16 +3,15 @@ import Header from './components/messages/header'
 import UserList from './components/messages/userList'
 import MessagesBox from './components/messages/messagesBox'
 
-class Page extends React.Component {
+class App extends React.Component {
   render() {
     return (
         <div className='app'>
           <Header />
-          <UserList />
           <MessagesBox />
         </div>
       )
   }
 }
 
-export default Page
+export default App

@@ -2,7 +2,7 @@ import {EventEmitter2 as EventEmitter} from 'eventemitter2'
 
 const CHANGE_EVENT = 'change'
 
-class ProgateStore extends EventEmitter {
+class BaseStore extends EventEmitter {
   constructor(opts) {
     super(opts)
     this._storage = null
@@ -47,5 +47,5 @@ class ProgateStore extends EventEmitter {
   }
 }
 
-export default ProgateStore
+export default BaseStore
 

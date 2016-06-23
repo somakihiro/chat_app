@@ -28,8 +28,8 @@ class ReplyBox extends React.Component {
   }
   handleKeyDown(e) {
     if (e.keyCode === 13) {
-      MessagesAction.sendMessage(MessagesStore.getOpenChatUserID(), this.state.value)
-
+      // MessagesAction.sendMessage(MessagesStore.getOpenChatUserID(), this.state.value)
+      MessagesAction.saveMessage(this.state.value)
       this.setState({
         value: '',
       })
@@ -44,7 +44,13 @@ class ReplyBox extends React.Component {
   render() {
     return (
       <div className='reply-box'>
-        <input value={ this.state.value } onKeyDown={ this.handleKeyDown } onChange={ this.updateValue } className='reply-box__input' placeholder='Type message to reply..' />
+        <input
+          value={ this.state.value }
+          onKeyDown={ this.handleKeyDown }
+          onChange={ this.updateValue }
+          className='reply-box__input'
+          placeholder='Type message to reply..'
+        />
         <span className='reply-box__tip'>
           Press <span className='reply-box__tip__button'>Enter</span> to send
         </span>

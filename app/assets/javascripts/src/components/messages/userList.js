@@ -1,4 +1,5 @@
 import React from 'react'
+import _ from 'lodash'
 import classNames from 'classnames'
 import Utils from '../../utils'
 import MessagesStore from '../../stores/messages'
@@ -17,27 +18,26 @@ class UserList extends React.Component {
   }
 
   getStateFromStore() {
-    const allMessages = MessagesStore.getAllChats()
+    const allMessages = MessagesStore.getMessage()
 
     const messageList = []
-    for (const id in allMessages) {
-      const item = allMessages[id]
-
-      const messagesLength = item.messages.length
+    _.each(allMessages, (message) => {
+      const messagesLength = message.messages.length
       messageList.push({
-        lastMessage: item.messages[messagesLength - 1],
-        lastAccess: item.lastAccess,
-        user: item.user,
+        lastMessage: message.messages[messagesLength - 1],
+        lastAccess: message.lastAccess,
+        user: message.user,
       })
-    }
+    })
+
     return {openChatID: MessagesStore.getOpenChatUserID(), messageList: messageList}
   }
 
   componentWillMount() {
-    MessagesStore.addChangeListener(this.onStoreChange.bind(this))
+    MessagesStore.onChange(this.onStoreChange.bind(this))
   }
   componentWillUnmount() {
-    MessagesStore.removeChangeListener(this.onStoreChange.bind(this))
+    MessagesStore.offChange(this.onStoreChange.bind(this))
   }
   onStoreChange() {
     this.setState(this.getStateFromStore())
@@ -85,7 +85,11 @@ class UserList extends React.Component {
       })
 
       return (
-        <li onClick={ this.changeOpenChat.bind(this, message.user.id) } className={ itemClasses } key={ message.user.id }>
+        <li
+          onClick={ this.changeOpenChat.bind(this, message.user.id) }
+          className={ itemClasses }
+          key={ message.user.id }
+        >
           <div className='user-list__item__picture'>
             <img src={ message.user.profilePicture } />
           </div>
