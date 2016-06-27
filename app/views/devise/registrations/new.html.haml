@@ -1,25 +1,18 @@
-%h2 新規登録
-
-= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  = devise_error_messages!
-
-  .form-group
-    = f.label :name
-    = f.text_field :name
-
-  .form-group
-    = f.label :email
-    = f.email_field :email, autofocus: true
-
-  .form-group
-    = f.label :password
-    = f.password_field :password, autocomplete: 'off'
-
-  .form-group
-    = f.label :password_confirmation
-    = f.password_field :password_confirmation, autocomplete: 'off'
-
-  .form-group
-    = f.submit '新規登録'
-
-= render 'devise/shared/links'
+.sign_up_wrapper
+  .form_wrapper
+    = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+      = devise_error_messages!
+      %h2.new_user_title Chatを始めよう
+      .form-group
+        = f.text_field :name, class: 'form-control', placeholder: 'ユーザー名'
+      .form-group
+        = f.email_field :email, class: 'form-control', placeholder: 'メールアドレス', autofocus: true
+      .form-group
+        = f.password_field :password, class: 'form-control', placeholder: 'パスワード', autocomplete: 'off'
+      .form-group
+        = f.password_field :password_confirmation, class: 'form-control', placeholder: 'パスワード確認', autocomplete: 'off'
+      .form-group
+        = f.submit '新規登録', class: 'btn btn-info new_user_btn'
+      = link_to 'ログインはこちらから', new_user_session_path
+  .image_wrapper
+    = image_tag 'registrations_view.png'
