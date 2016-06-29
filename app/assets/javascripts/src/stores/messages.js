@@ -1,7 +1,7 @@
-import _ from 'lodash'
+// import _ from 'lodash'
 import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
-import UserStore from '../stores/user'
+// import UserStore from '../stores/user'
 
 // const messages = {
 //   2: {
@@ -100,12 +100,12 @@ const MessagesStore = new MessageStore()
 
 MessagesStore.dispatchToken = Dispatcher.register(payload => {
   const actions = {
-    updateOpenChatID(payload) {
-      openChatID = payload.action.userID
-      messages[openChatID].lastAccess.currentUser = +new Date()
+    // updateOpenChatID(payload) {
+    //   var openChatID = payload.action.userID
+    //   messages[openChatID].lastAccess.currentUser = +new Date()
 
-      MessagesStore.emitChange()
-    },
+    //   MessagesStore.emitChange()
+    // },
     // sendMessage(payload) {
     //   const messages = MessagesStore.getMessage()
     //   messages.push({
@@ -128,12 +128,12 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
     SAVE_MESSAGE(payload) {
       const messages = MessagesStore.getMessage()
       messages.push({
-        id: Math.floor( Math.random() * 1000000 ),
+        id: Math.floor(Math.random() * 1000000),
         message: payload.action.message,
       })
       MessagesStore.setMessage(messages)
       MessagesStore.emitChange()
-    }
+    },
   }
 
   actions[payload.action.type] && actions[payload.action.type](payload)
