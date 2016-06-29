@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   # 基本ルーティング
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: 'users/registrations',
+  }
   resources :users, only: [:show]
   root 'messages#index'
   resources :messages, only: [:create]

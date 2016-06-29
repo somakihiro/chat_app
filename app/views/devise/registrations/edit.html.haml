@@ -2,6 +2,8 @@
   %h3.edit_user_title プロフィール編集
   = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
     = devise_error_messages!
+    .form-group
+      = f.file_field :image
     .form-group.edit_form_group
       = f.text_field :name, class: 'form-control'
     .form-group.edit_form_group

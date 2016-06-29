@@ -1,14 +1,17 @@
-.sign_up_wrapper, .login_wrapper, .edit_user_title {
+.sign_up_wrapper, .login_wrapper {
   padding-top: 70px;
 }
 .form_wrapper {
   float: left;
   width: 320px;
-  margin-left: 20%;
+  margin-left: 9%;
 }
 .new_user_title, .login_title, .edit_user_title {
   text-align: center;
   padding-bottom: 25px;
+}
+.edit_user_title {
+  padding-top: 40px;
 }
 .new_user_btn, .login_btn {
   width: 100%;
@@ -18,7 +21,7 @@
   margin-right: 20%;
 }
 .edit_user {
-  width: 51%;
+  width: 67%;
   border: 1px solid #dbdbdb;
   border-radius: 3px;
   padding: 55px;
@@ -35,4 +38,29 @@
 .user_destroy_btn {
   margin-top: 45px;
   margin-left: 65%;
+}
+.user_profile {
+  width: 30%;
+  border: 1px solid #fff;
+  background: #fafafa;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 65px;
+  border-radius: 4px;
+  margin-top: 60px;
+  text-align: center;
+}
+.user_profile_image_id {
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+.user_profile_data {
+  margin-left: auto;
+  margin-right: auto;
+}
+.user_profile_name, .user_profile_email {
+  font-size: 18px;
+}
+.user_profile_name {
+  padding-bottom: 10px;
 }

@@ -1,2 +1,24 @@
-= @user.name
-= @user.email
+.user_profile
+  - if @user.image?
+    .user_profile_image
+      = image_tag "/user_images/#{@user.image}", class: 'user_profile_image_id'
+  .user_profile_name
+    = @user.name
+  .user_profile_email
+    = @user.email
+  / %table.user_profile_data
+  /   %tbody
+  /     %tr
+  /       %td
+  /         %span
+  /           ユーザー名
+  /       %td
+  /         %span
+  /           = @user.name
+  /     %tr
+  /       %td
+  /         %span
+  /           メールアドレス
+  /       %td
+  /         %span
+  /           = @user.email
