@@ -5,5 +5,6 @@ class UsersController < ApplicationController
   end
 
   def search
+    @users = User.all
   end
 end
