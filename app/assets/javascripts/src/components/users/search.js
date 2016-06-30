@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React from 'react'
 import User from '../../stores/users'
 
@@ -40,10 +41,11 @@ export default class Search extends React.Component {
                placeholder='ユーザー名で検索しよう'
         />
         <ul className='search_user_list'>
-          {users.map((user) => {
+          {
+            _.map(users, (user) => {
               return <li key={user.id} className='search_user_list_id'>{user.name}</li>
-            }
-          )}
+            })
+          }
         </ul>
       </div>
     )

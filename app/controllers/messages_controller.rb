@@ -6,15 +6,8 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @message = Message.new(message: params[:message])
+    @message = current_user.messages.build(message: params[:message])
     @message.save
     render json: { message: @message }
   end
-
-  # private
-
-  #   def message_params
-  #     params.require(:message).permit(:message)
-  #   end
-
 end
