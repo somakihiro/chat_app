@@ -37,11 +37,11 @@ export default class Search extends React.Component {
                className='search_form'
                value={this.state.searchString}
                onChange={this.handleChange}
-               placeholer='Type here'
+               placeholder='ユーザー名で検索しよう'
         />
-        <ul>
+        <ul className='search_user_list'>
           {users.map((user) => {
-              return <li key={user.id}>{user.name}</li>
+              return <li key={user.id} className='search_user_list_id'>{user.name}</li>
             }
           )}
         </ul>
