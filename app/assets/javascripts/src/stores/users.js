@@ -3,7 +3,7 @@ import BaseStore from '../base/store'
 
 class UserStore extends BaseStore {
   getUser() {
-    if (!this.get('user')) this.set('user', [])
+    if (!this.get('user')) this.setUser([])
     return this.get('user')
   }
 

@@ -1,6 +1,4 @@
-import _ from 'lodash'
 import React from 'react'
-import User from '../../stores/users'
 import UserList from './userList'
 
 export default class Search extends React.Component {

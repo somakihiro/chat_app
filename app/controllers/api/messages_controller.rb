@@ -1,4 +1,4 @@
-class Api::MessagesController < Api::ApplicationController
+class Api::MessagesController < ApplicationController
   def index
     @messages = Message.all
     render json: @messages
