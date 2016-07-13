@@ -4,15 +4,24 @@ export const Root = window.location.origin || `${window.location.protocol}//${wi
 export const APIRoot = `${Root}/api`
 export const APIEndpoints = {
   MESSAGES: APIRoot + '/messages',
-  USERS_SEARCH: APIRoot + '/users/search',
+  USERS: APIRoot + '/users',
+  FRIENDSHIPS: APIRoot + '/friendships',
 }
 
 export const ActionTypes = keyMirror({
   // messages
   LOAD_MESSAGE: null,
   SAVE_MESSAGE: null,
-  // user search
+  UPDATE_OPEN_CHAT_ID: null,
+
+  // user
   LOAD_USER: null,
+  LOAD_CURRENT_USER: null,
+  LOAD_SEARCH_USER: null,
+
+  // friendships
+  LOAD_FRIEND_SHIPS: null,
+  SAVE_FRIEND: null,
 })
 
 export function CSRFToken() {

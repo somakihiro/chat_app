@@ -1,7 +1,7 @@
 // import _ from 'lodash'
 import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
-// import UserStore from '../stores/user'
+import User from './users'
 
 // const messages = {
 //   2: {
@@ -70,28 +70,30 @@ import BaseStore from '../base/store'
 // }
 
 // var openChatID = parseInt(Object.keys(messages)[0], 10)
-
+var openChatID = parseInt(Object.keys(User.getUser())[0], 10)
+// var openChatID = parseInt([User.getUser()[0].id], 10)
+// var openChatID = parseInt([3], 10)
 class MessageStore extends BaseStore {
+
   getOpenChatUserID() {
-    var openChatID = parseInt(Object.keys(this.getMessage())[0], 10)
     return openChatID
   }
 
   getChatByUserID(id) {
-    return this.getMessage()[id]
+    // return this.getMessage()[id]
+    return User.getUser()[id]
   }
 
-  // getAllChats() {
-  //   return messages
+  // getChatByUserID() {
+  //   return User.getUser()[this.getOpenChatUserID()].messages
   // }
 
   getMessage() {
-    if (!this.get('message')) this.set('message', [])
+    if (!this.get('message')) this.setMessage([])
     return this.get('message')
   }
 
   setMessage(array) {
-    // _.merge(this.getMessage(), obj)
     this.set('message', array)
   }
 }
@@ -100,12 +102,11 @@ const MessagesStore = new MessageStore()
 
 MessagesStore.dispatchToken = Dispatcher.register(payload => {
   const actions = {
-    // updateOpenChatID(payload) {
-    //   var openChatID = payload.action.userID
-    //   messages[openChatID].lastAccess.currentUser = +new Date()
-
-    //   MessagesStore.emitChange()
-    // },
+    UPDATE_OPEN_CHAT_ID(payload) {
+      openChatID = payload.action.userID
+      // messages[openChatID].lastAccess.currentUser = +new Date()
+      MessagesStore.emitChange()
+    },
     // sendMessage(payload) {
     //   const messages = MessagesStore.getMessage()
     //   messages.push({

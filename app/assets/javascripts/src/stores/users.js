@@ -20,6 +20,14 @@ User.dispatchToken = Dispatcher.register(payload => {
       User.setUser(payload.action.json)
       User.emitChange()
     },
+    LOAD_CURRENT_USER(payload) {
+      User.setUser(payload.action.json)
+      User.emitChange()
+    },
+    LOAD_SEARCH_USER(payload) {
+      User.setUser(payload.action.json)
+      User.emitChange()
+    },
   }
 
   actions[payload.action.type] && actions[payload.action.type](payload)

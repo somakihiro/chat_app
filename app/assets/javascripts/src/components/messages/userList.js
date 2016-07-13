@@ -1,10 +1,11 @@
 import React from 'react'
 import _ from 'lodash'
-// import classNames from 'classnames'
+import classNames from 'classnames'
 // import Utils from '../../utils'
 import MessagesStore from '../../stores/messages'
 import User from '../../stores/users'
 import MessagesAction from '../../actions/messages'
+import UsersAction from '../../actions/users'
 
 class UserList extends React.Component {
 
@@ -18,7 +19,11 @@ class UserList extends React.Component {
   }
 
   getStateFromStore() {
-    return {user: User.getUser()}
+    return {
+      user: User.getUser(),
+      currentUser: UsersAction.loadCurrentUser(),
+      openChatID: MessagesStore.getOpenChatUserID(),
+    }
     // const allMessages = MessagesStore.getMessage()
 
     // const messageList = []
@@ -38,12 +43,14 @@ class UserList extends React.Component {
   }
 
   componentDidMount() {
-    // MessagesStore.onChange(this.onStoreChange.bind(this))
+    MessagesStore.onChange(this.onStoreChange.bind(this))
     User.onChange(this.onStoreChange.bind(this))
+    // UsersAction.onChange(this.onStoreChange.bind(this))
   }
   componentWillUnmount() {
-    // MessagesStore.offChange(this.onStoreChange.bind(this))
+    MessagesStore.offChange(this.onStoreChange.bind(this))
     User.offChange(this.onStoreChange.bind(this))
+    // UsersAction.offChange(this.onStoreChange.bind(this))
   }
   onStoreChange() {
     this.setState(this.getStateFromStore())
@@ -54,10 +61,16 @@ class UserList extends React.Component {
 
   render() {
     const users = _.map(this.state.user, (user) => {
+      const itemClasses = classNames({
+        'user-list__item': true,
+        'clear': true,
+        // 'user-list__item--new': isNewMessage,
+        'user-list__item--active': this.state.openChatID === user.id,
+      })
       return (
         <li onClick={ this.changeOpenChat.bind(this, user.id) }
             key={ user.id }
-            className='user-list__item clear'
+            className={ itemClasses }
         >
           <div className='user-list__item__picture'>
             <img src={ user.image ? '/user_images/' + user.image : 'assets/default_image.jpg' } />

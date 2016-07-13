@@ -15,14 +15,18 @@ Rails.application.routes.draw do
   end
   root 'messages#index'
   resources :messages, only: [:create]
+  resources :friendships, only: [:create, :destroy]
 
   # APIルーティング
   namespace :api, defaults: { format: :json } do
     resources :messages, only: [:index, :create]
     resources :users, only: [] do
       collection do
+        get :index
         get :search
+        get :me
       end
     end
+    resources :friendships, only: [:index, :create]
   end
 end

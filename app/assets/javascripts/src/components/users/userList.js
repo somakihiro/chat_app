@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import React from 'react'
 import User from '../../stores/users'
+import FriendshipsAction from '../../actions/friendships'
 
 export default class UserList extends React.Component {
   static get propTypes() {
@@ -32,6 +33,9 @@ export default class UserList extends React.Component {
   onStoreChange() {
     this.setState(this.getStateFromStore())
   }
+  saveFriend(id) {
+    FriendshipsAction.saveFriend(id)
+  }
 
   render() {
     var users = this.state.users
@@ -45,7 +49,25 @@ export default class UserList extends React.Component {
       <ul className='search_user_list'>
         {
           _.map(users, (user) => {
-            return <li key={user.id} className='search_user_list_id'>{user.name}</li>
+            return (
+                // <a
+                //   href='/'
+                //   key={ user.id }
+                // >
+                //   <li
+                //      className='search_user_list_id'
+                //      onClick={ this.saveFriend.bind(this, user.id) }
+                //   >
+                //     {user.name}
+                //   </li>
+                // </a>
+                <li key={ user.id }>
+                  <form action='/friendships' method='post'>
+                    <input name='to_user_id' value={ user.id } type='hidden' />
+                    <input type='submit' value={ user.name } className='search_user_list_id' />
+                  </form>
+                </li>
+            )
           })
          }
       </ul>

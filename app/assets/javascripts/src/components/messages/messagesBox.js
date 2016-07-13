@@ -2,7 +2,9 @@ import React from 'react'
 import classNames from 'classNames'
 import ReplyBox from '../../components/messages/replyBox'
 import MessagesStore from '../../stores/messages'
-// import UserStore from '../../stores/user'
+import UsersAction from '../../actions/users'
+import User from '../../stores/users'
+import _ from 'lodash'
 // import Utils from '../../utils'
 
 class MessagesBox extends React.Component {
@@ -15,14 +17,35 @@ class MessagesBox extends React.Component {
     return this.getStateFromStore()
   }
   getStateFromStore() {
-    // return MessagesStore.getChatByUserID(MessagesStore.getOpenChatUserID())
-    return {messages: MessagesStore.getMessage()}
+    const users = User.getUser()
+    const currentUser = UsersAction.loadCurrentUser()
+    const openChatID = MessagesStore.getOpenChatUserID()
+    const openUser = _.find(users, {id: openChatID})
+    if (!openUser) return {}
+    const messages = openUser.messages
+
+    // const message = User.getUser()[MessagesStore.getOpenChatUserID()].messages
+    // return {messages: MessagesStore.getChatByUserID(MessagesStore.getOpenChatUserID())}
+    // return {messages: MessagesStore.getMessage()}
+    // return {messages: _.find(User.getUser(), MessagesStore.getOpenChatUserID()]).messages})
+    // return {messages: MessagesStore.getChatByUserID(MessagesStore.getOpenChatUserID())}
+    // return {messages: message}
+    // return {messages: User.getUser()}
+
+    return {
+      users: users,
+      currentUser: currentUser,
+      openChatID: openChatID,
+      messages: messages,
+    }
   }
   componentDidMount() {
     MessagesStore.onChange(this.onStoreChange.bind(this))
+    User.onChange(this.onStoreChange.bind(this))
   }
   componentWillUnmount() {
     MessagesStore.offChange(this.onStoreChange.bind(this))
+    User.offChange(this.onStoreChange.bind(this))
   }
   onStoreChange() {
     this.setState(this.getStateFromStore())
@@ -30,12 +53,31 @@ class MessagesBox extends React.Component {
 
   render() {
     // const messagesLength = this.state.messages.length
-    // const currentUserID = UserStore.user.id
+    // const currentUserID = UsersAction.loadCurrentUser().id
 
-    const messages = this.state.messages.map((message) => {
+    const messages = _.map(this.state.messages, (message) => {
+    // const messages = _.map(this.state.users, (user) => {
+    //   if(user.id === this.state.openChatID){
+    //     _.map(user.messages, (message) => {
+    //       const messageClasses = classNames({
+    //         'message-box__item': true,
+    //         'message-box__item--from-current': message.user_id === currentUserID,
+    //         'clear': true,
+    //     })
+
+    //       return (
+    //         <li key={ message.id } className={ messageClasses }>
+    //           <div className='message-box__item__contents'>
+    //             { message.message }
+    //           </div>
+    //         </li>
+    //       )
+    //     })
+    //   }
+    // })
       const messageClasses = classNames({
         'message-box__item': true,
-        // 'message-box__item--from-current': message.from === currentUserID,
+        'message-box__item--from-current': message.user_id === this.state.currentUser.id,
         'clear': true,
       })
 
