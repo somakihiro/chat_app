@@ -2,28 +2,36 @@ import React from 'react'
 import _ from 'lodash'
 import classNames from 'classnames'
 // import Utils from '../../utils'
-import MessagesStore from '../../stores/messages'
-import User from '../../stores/users'
+// import MessagesStore from '../../stores/messages'
+// import User from '../../stores/users'
 import MessagesAction from '../../actions/messages'
-import UsersAction from '../../actions/users'
+// import UsersAction from '../../actions/users'
 
 class UserList extends React.Component {
 
-  constructor(props) {
-    super(props)
-    this.state = this.initialState
-  }
-
-  get initialState() {
-    return this.getStateFromStore()
-  }
-
-  getStateFromStore() {
+  static get propTypes() {
     return {
-      user: User.getUser(),
-      currentUser: UsersAction.loadCurrentUser(),
-      openChatID: MessagesStore.getOpenChatUserID(),
+      users: React.PropTypes.array,
+      currentUser: React.PropTypes.array,
+      openChatID: React.PropTypes.any,
     }
+  }
+  // constructor(props) {
+  //   super(props)
+  //   this.state = this.initialState
+  // }
+
+  // get initialState() {
+  //   return this.getStateFromStores()
+  // }
+
+  // getStateFromStores() {
+  //   return {
+  //     // user: User.getUser(),
+  //     users: User.getUsers(),
+  //     currentUser: UsersAction.loadCurrentUser(),
+  //     openChatID: MessagesStore.getOpenChatUserID(),
+  //   }
     // const allMessages = MessagesStore.getMessage()
 
     // const messageList = []
@@ -40,44 +48,53 @@ class UserList extends React.Component {
     //   openChatID: MessagesStore.getOpenChatUserID(),
     //   messageList: messageList,
     // }
-  }
+  // }
 
-  componentDidMount() {
-    MessagesStore.onChange(this.onStoreChange.bind(this))
-    User.onChange(this.onStoreChange.bind(this))
-    // UsersAction.onChange(this.onStoreChange.bind(this))
-  }
-  componentWillUnmount() {
-    MessagesStore.offChange(this.onStoreChange.bind(this))
-    User.offChange(this.onStoreChange.bind(this))
-    // UsersAction.offChange(this.onStoreChange.bind(this))
-  }
-  onStoreChange() {
-    this.setState(this.getStateFromStore())
-  }
+  // componentDidMount() {
+  //   MessagesStore.onChange(this.onStoreChange.bind(this))
+  //   User.onChange(this.onStoreChange.bind(this))
+  //   // UsersAction.onChange(this.onStoreChange.bind(this))
+  // }
+
+  // componentWillUnmount() {
+  //   MessagesStore.offChange(this.onStoreChange.bind(this))
+  //   User.offChange(this.onStoreChange.bind(this))
+  //   // UsersAction.offChange(this.onStoreChange.bind(this))
+  // }
+
+  // onStoreChange() {
+  //   this.setState(this.getStateFromStores())
+  // }
+
   changeOpenChat(id) {
     MessagesAction.changeOpenChat(id)
   }
 
   render() {
-    const users = _.map(this.state.user, (user) => {
+    const {
+      users,
+      // currentUser,
+      openChatID,
+    } = this.props
+
+    const friendUsers = _.map(users, (user) => {
       const itemClasses = classNames({
         'user-list__item': true,
         'clear': true,
         // 'user-list__item--new': isNewMessage,
-        'user-list__item--active': this.state.openChatID === user.id,
+        'user-list__item--active': openChatID === user.id,
       })
       return (
-        <li onClick={ this.changeOpenChat.bind(this, user.id) }
-            key={ user.id }
-            className={ itemClasses }
+        <li onClick={this.changeOpenChat.bind(this, user.id)}
+            key={user.id}
+            className={itemClasses}
         >
           <div className='user-list__item__picture'>
-            <img src={ user.image ? '/user_images/' + user.image : 'assets/default_image.jpg' } />
+            <img src={user.image ? '/user_images/' + user.image : 'assets/default_image.jpg' }/>
           </div>
           <div className='user-list__item__details'>
             <div className='user-list__item__name'>
-              { user.name }
+              {user.name}
             </div>
           </div>
         </li>
@@ -86,11 +103,13 @@ class UserList extends React.Component {
     return (
       <div className='user-list'>
         <ul className='user-list__list'>
-          { users }
+          {friendUsers}
          </ul>
       </div>
     )
   }
+}
+export default UserList
 
   //   this.state.messageList.sort((a, b) => {
   //     if (a.lastMessage.id > b.lastMessage.id) {
@@ -164,6 +183,3 @@ class UserList extends React.Component {
   //     </div>
   //   )
   // }
-}
-
-export default UserList

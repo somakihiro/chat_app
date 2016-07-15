@@ -5,7 +5,7 @@ export default class Search extends React.Component {
   constructor(props) {
     super(props)
     this.state = this.initialState
-    this.handleChange = this.handleChange.bind(this)
+    // this.handleChange = this.handleChange.bind(this)
   }
 
   get initialState() {
@@ -19,12 +19,13 @@ export default class Search extends React.Component {
     })
   }
   render() {
+    const {searchString} = this.state
     return (
       <div className='search'>
         <input type='text'
                className='search_form'
-               value={this.state.searchString}
-               onChange={this.handleChange}
+               value={searchString}
+               onChange={this.handleChange.bind(this)}
                placeholder='ユーザー名で検索しよう'
         />
         <UserList {...this.state} />

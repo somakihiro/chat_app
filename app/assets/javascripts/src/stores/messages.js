@@ -70,7 +70,7 @@ import User from './users'
 // }
 
 // var openChatID = parseInt(Object.keys(messages)[0], 10)
-var openChatID = parseInt(Object.keys(User.getUser())[0], 10)
+let openChatID = parseInt(Object.keys(User.getUsers())[0], 10)
 // var openChatID = parseInt([User.getUser()[0].id], 10)
 // var openChatID = parseInt([3], 10)
 class MessageStore extends BaseStore {
@@ -81,20 +81,20 @@ class MessageStore extends BaseStore {
 
   getChatByUserID(id) {
     // return this.getMessage()[id]
-    return User.getUser()[id]
+    return User.getUsers()[id]
   }
 
   // getChatByUserID() {
   //   return User.getUser()[this.getOpenChatUserID()].messages
   // }
 
-  getMessage() {
-    if (!this.get('message')) this.setMessage([])
-    return this.get('message')
+  getMessages() {
+    if (!this.get('messages')) this.setMessages([])
+    return this.get('messages')
   }
 
-  setMessage(array) {
-    this.set('message', array)
+  setMessages(array) {
+    this.set('messages', array)
   }
 }
 
@@ -122,17 +122,17 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       // messages[userID].lastAccess.currentUser = +new Date()
     //   MessagesStore.emitChange()
     // },
-    LOAD_MESSAGE(payload) {
-      MessagesStore.setMessage(payload.action.json)
+    LOAD_MESSAGES(payload) {
+      MessagesStore.setMessages(payload.action.json)
       MessagesStore.emitChange()
     },
     SAVE_MESSAGE(payload) {
-      const messages = MessagesStore.getMessage()
+      const messages = MessagesStore.getMessages()
       messages.push({
         id: Math.floor(Math.random() * 1000000),
         message: payload.action.message,
       })
-      MessagesStore.setMessage(messages)
+      MessagesStore.setMessages(messages)
       MessagesStore.emitChange()
     },
   }

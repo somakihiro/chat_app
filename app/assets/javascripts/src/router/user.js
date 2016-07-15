@@ -6,15 +6,15 @@ import UsersAction from '../actions/users'
 
 export default class UserRouter extends BaseRouter {
   register() {
-    this.route('/users/search', this.decorateSearch, this.loadUsers, this.loadCurrentUsers)
+    this.route('/users/search', this.decorateSearch, this.loadSearchUsers, this.loadCurrentUser)
   }
 
-  loadUsers(ctx, next) {
-    UsersAction.loadSearchUser()
+  loadSearchUsers(ctx, next) {
+    UsersAction.loadSearchUsers()
     next()
   }
 
-  loadCurrentUsers(ctx, next) {
+  loadCurrentUser(ctx, next) {
     UsersAction.loadCurrentUser()
     next()
   }

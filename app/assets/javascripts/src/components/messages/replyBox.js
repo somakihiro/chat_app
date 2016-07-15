@@ -4,21 +4,9 @@ import MessagesAction from '../../actions/messages'
 
 class ReplyBox extends React.Component {
 
-  static get defaultProps() {
-    return {
-    }
-  }
-
-  static get propTypes() {
-    return {
-    }
-  }
-
   constructor(props) {
     super(props)
     this.state = this.initialState
-    this.handleKeyDown = this.handleKeyDown.bind(this)
-    this.updateValue = this.updateValue.bind(this)
   }
 
   get initialState() {
@@ -26,6 +14,7 @@ class ReplyBox extends React.Component {
       value: '',
     }
   }
+
   handleKeyDown(e) {
     if (e.keyCode === 13) {
       // MessagesAction.sendMessage(MessagesStore.getOpenChatUserID(), this.state.value)
@@ -35,6 +24,7 @@ class ReplyBox extends React.Component {
       })
     }
   }
+
   updateValue(e) {
     this.setState({
       value: e.target.value,
@@ -42,12 +32,14 @@ class ReplyBox extends React.Component {
   }
 
   render() {
+    const {value} = this.state
+
     return (
       <div className='reply-box'>
         <input
-          value={ this.state.value }
-          onKeyDown={ this.handleKeyDown }
-          onChange={ this.updateValue }
+          value={value}
+          onKeyDown={this.handleKeyDown.bind(this)}
+          onChange={this.updateValue.bind(this)}
           className='reply-box__input'
           placeholder='Type message to reply..'
         />

@@ -18,7 +18,7 @@ export default {
   //   })
   // },
 
-  loadMessage() {
+  loadMessages() {
     return new Promise((resolve, reject) => {
       request
       .get(`${APIEndpoints.MESSAGES}`)
@@ -26,7 +26,7 @@ export default {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
           Dispatcher.handleServerAction({
-            type: ActionTypes.LOAD_MESSAGE,
+            type: ActionTypes.LOAD_MESSAGES,
             json: json,
           })
           resolve(json)
