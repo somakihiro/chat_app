@@ -12,6 +12,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = this.initialState
+    this.onChangeHandler = this.onStoreChange.bind(this)
   }
 
   get initialState() {
@@ -19,7 +20,6 @@ class App extends React.Component {
   }
 
   getStateFromStores() {
-    // messagesBox
     const users = User.getUsers()
     const currentUser = User.getCurrentUser()
     const openChatID = MessagesStore.getOpenChatUserID()
@@ -33,19 +33,17 @@ class App extends React.Component {
       currentUser,
       openChatID,
       messages,
-      // userList
-      // friendUsers: User.getUsers(),
     }
   }
 
   componentDidMount() {
-    MessagesStore.onChange(this.onStoreChange.bind(this))
-    User.onChange(this.onStoreChange.bind(this))
+    MessagesStore.onChange(this.onChangeHandler)
+    User.onChange(this.onChangeHandler)
   }
 
   componentWillUnmount() {
-    MessagesStore.offChange(this.onStoreChange.bind(this))
-    User.offChange(this.onStoreChange.bind(this))
+    MessagesStore.offChange(this.onChangeHandler)
+    User.offChange(this.onChangeHandler)
   }
 
   onStoreChange() {

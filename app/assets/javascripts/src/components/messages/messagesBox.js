@@ -12,7 +12,7 @@ class MessagesBox extends React.Component {
   static get propTypes() {
     return {
       users: React.PropTypes.array,
-      currentUser: React.PropTypes.array,
+      currentUser: React.PropTypes.object,
       messages: React.PropTypes.array,
     }
   }
@@ -67,12 +67,7 @@ class MessagesBox extends React.Component {
   render() {
     // const messagesLength = this.state.messages.length
     // const currentUserID = UsersAction.loadCurrentUser().id
-    const {
-      // users,
-      currentUser,
-      // openChatID,
-      messages,
-    } = this.props
+    const {currentUser, messages} = this.props
 
     const allMessages = _.map(messages, (message) => {
     // const messages = _.map(this.state.users, (user) => {

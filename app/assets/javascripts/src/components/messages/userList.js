@@ -2,36 +2,38 @@ import React from 'react'
 import _ from 'lodash'
 import classNames from 'classnames'
 // import Utils from '../../utils'
-// import MessagesStore from '../../stores/messages'
-// import User from '../../stores/users'
+import MessagesStore from '../../stores/messages'
+import User from '../../stores/users'
 import MessagesAction from '../../actions/messages'
 // import UsersAction from '../../actions/users'
 
 class UserList extends React.Component {
 
-  static get propTypes() {
-    return {
-      users: React.PropTypes.array,
-      currentUser: React.PropTypes.array,
-      openChatID: React.PropTypes.any,
-    }
-  }
-  // constructor(props) {
-  //   super(props)
-  //   this.state = this.initialState
-  // }
-
-  // get initialState() {
-  //   return this.getStateFromStores()
-  // }
-
-  // getStateFromStores() {
+  // static get propTypes() {
   //   return {
-  //     // user: User.getUser(),
-  //     users: User.getUsers(),
-  //     currentUser: UsersAction.loadCurrentUser(),
-  //     openChatID: MessagesStore.getOpenChatUserID(),
+  //     // users: React.PropTypes.array,
+  //     currentUser: React.PropTypes.object,
+  //     openChatID: React.PropTypes.any,
   //   }
+  // }
+
+  constructor(props) {
+    super(props)
+    this.state = this.initialState
+    this.onChangeHandler = this.onStoreChange.bind(this)
+  }
+
+  get initialState() {
+    return this.getStateFromStores()
+    // return {users: User.getUsers()}
+  }
+
+  getStateFromStores() {
+    return {
+      users: User.getUsers(),
+      // currentUser: UsersAction.loadCurrentUser(),
+      openChatID: MessagesStore.getOpenChatUserID(),
+    }
     // const allMessages = MessagesStore.getMessage()
 
     // const messageList = []
@@ -48,34 +50,31 @@ class UserList extends React.Component {
     //   openChatID: MessagesStore.getOpenChatUserID(),
     //   messageList: messageList,
     // }
-  // }
+  }
 
-  // componentDidMount() {
-  //   MessagesStore.onChange(this.onStoreChange.bind(this))
-  //   User.onChange(this.onStoreChange.bind(this))
-  //   // UsersAction.onChange(this.onStoreChange.bind(this))
-  // }
+  componentDidMount() {
+    MessagesStore.onChange(this.onChangeHandler)
+    User.onChange(this.onChangeHandler)
+  // //   // UsersAction.onChange(this.onStoreChange.bind(this))
+  }
 
-  // componentWillUnmount() {
-  //   MessagesStore.offChange(this.onStoreChange.bind(this))
-  //   User.offChange(this.onStoreChange.bind(this))
+  componentWillUnmount() {
+    MessagesStore.offChange(this.onChangeHandler)
+    User.offChange(this.onChangeHandler)
   //   // UsersAction.offChange(this.onStoreChange.bind(this))
-  // }
+  }
 
-  // onStoreChange() {
-  //   this.setState(this.getStateFromStores())
-  // }
+  onStoreChange() {
+    this.setState(this.getStateFromStores())
+  }
 
   changeOpenChat(id) {
     MessagesAction.changeOpenChat(id)
   }
 
   render() {
-    const {
-      users,
-      // currentUser,
-      openChatID,
-    } = this.props
+    const {users, openChatID} = this.state
+    // const {openChatID} = this.props
 
     const friendUsers = _.map(users, (user) => {
       const itemClasses = classNames({
@@ -109,6 +108,7 @@ class UserList extends React.Component {
     )
   }
 }
+
 export default UserList
 
   //   this.state.messageList.sort((a, b) => {
