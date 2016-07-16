@@ -54,7 +54,7 @@ class App extends React.Component {
     return (
         <div className='app'>
           <Header />
-          <UserList {...this.state} />
+          <UserList />
           <MessagesBox {...this.state} />
         </div>
       )
