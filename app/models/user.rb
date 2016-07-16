@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
     self.image = file_name
   end
 
-  def friends(user)
+  def friend(user)
     from_user_friendships.find_or_create_by(to_user_id: user.id)
   end
 
@@ -31,6 +31,10 @@ class User < ActiveRecord::Base
   # def friends_all_plus
   #   friends_to_user + friends_from_user + current_user
   # end
+
+  def friend?(user)
+    self.from_friend?(user) || self.to_friend?(user)
+  end
 
   def from_friend?(user)
     friends_from_user.include?(user)
