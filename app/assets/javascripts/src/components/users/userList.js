@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import React from 'react'
 import User from '../../stores/users'
+import {CSRFToken} from '../../constants/app'
 // import FriendshipsAction from '../../actions/friendships'
 
 export default class UserList extends React.Component {
@@ -58,8 +59,8 @@ export default class UserList extends React.Component {
           _.map(allUsers, (user) => {
             return (
               <li key={user.id}>
-                {/* csrfトークンを有効にしても通るようにする */}
                 <form action='/friendships' method='post'>
+                  <input type='hidden' name='authenticity_token' value={CSRFToken()} />
                   <input name='to_user_id' value={user.id} type='hidden' />
                   <input type='submit' value={user.name} className='search_user_list_id' />
                 </form>
