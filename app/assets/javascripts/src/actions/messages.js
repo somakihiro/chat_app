@@ -36,18 +36,19 @@ export default {
       })
     })
   },
-  saveMessage(message) {
+  saveMessage(body, to_user_id) {
     return new Promise((resolve, reject) => {
       request
       .post(`${APIEndpoints.MESSAGES}`)
       .set('X-CSRF-Token', CSRFToken())
-      .send({message: message})
+      .send({body: body, to_user_id: to_user_id})
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
           Dispatcher.handleServerAction({
             type: ActionTypes.SAVE_MESSAGE,
-            message: message,
+            body: body,
+            to_user_id: to_user_id,
             json: json,
           })
           resolve(json)

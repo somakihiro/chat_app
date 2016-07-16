@@ -130,7 +130,8 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       const messages = MessagesStore.getMessages()
       messages.push({
         id: Math.floor(Math.random() * 1000000),
-        message: payload.action.message,
+        body: payload.action.body,
+        to_user_id: payload.action.to_user_id,
       })
       MessagesStore.setMessages(messages)
       MessagesStore.emitChange()
