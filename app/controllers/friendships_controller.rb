@@ -6,7 +6,7 @@ class FriendshipsController < ApplicationController
     if current_user.friend?(@user)
       redirect_to root_path
     else
-      current_user.friend(@user)
+      current_user.make_friend_with(@user)
       redirect_to root_path
     end
   end

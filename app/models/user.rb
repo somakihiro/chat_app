@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
     self.image = file_name
   end
 
-  def friend(user)
+  def make_friend_with(user)
     from_user_friendships.find_or_create_by(to_user_id: user.id)
   end
 

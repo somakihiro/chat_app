@@ -20,8 +20,8 @@ class ReplyBox extends React.Component {
 
   getStateFromStores() {
     return {
-      value:'',
-      toUserID: MessagesStore.getOpenChatUserID(),
+      value: '',
+      toUserId: MessagesStore.getOpenChatUserID(),
     }
   }
 
@@ -40,10 +40,10 @@ class ReplyBox extends React.Component {
   handleKeyDown(e) {
     if (e.keyCode === 13) {
       // MessagesAction.sendMessage(MessagesStore.getOpenChatUserID(), this.state.value)
-      MessagesAction.saveMessage(this.state.value, this.state.toUserID)
+      MessagesAction.saveMessage(this.state.value, this.state.toUserId)
       this.setState({
         value: '',
-        toUserID: MessagesStore.getOpenChatUserID(),
+        toUserId: MessagesStore.getOpenChatUserID(),
       })
     }
   }
@@ -55,7 +55,7 @@ class ReplyBox extends React.Component {
   }
 
   render() {
-    const {value, touserID} = this.state
+    const {value} = this.state
 
     return (
       <div className='reply-box'>

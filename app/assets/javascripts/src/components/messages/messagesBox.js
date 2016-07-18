@@ -122,7 +122,7 @@ class MessagesBox extends React.Component {
         <ul className='message-box__list'>
           { allMessages }
         </ul>
-        <ReplyBox />,
+        <ReplyBox />
       </div>
     )
   }

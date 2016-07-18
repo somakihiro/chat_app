@@ -16,10 +16,10 @@ class Api::UsersController < ApplicationController
     render json: current_user.as_json(include: :messages)
   end
 
-  def all
-    @users = User.all
-    render json: @users.as_json(include: :messages)
-  end
+  # def all
+  #   @users = User.all
+  #   render json: @users.as_json(include: :messages)
+  # end
 
   # def show
   #   @user = User.find(params[:id])
