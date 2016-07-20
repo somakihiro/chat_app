@@ -9,7 +9,7 @@ class Api::UsersController < ApplicationController
   def index
     # @users = User.where.not(id: current_user.id)
     @users = current_user.friends_all
-    render json: @users.as_json(include: :messages)
+    render json: @users
   end
 
   def me
@@ -21,12 +21,12 @@ class Api::UsersController < ApplicationController
   #   render json: @users.as_json(include: :messages)
   # end
 
-  # def show
-  #   @user = User.find(params[:id])
-  #   render json: @user.as_json(include: :messages)
-  # end
+  def show
+    @user = User.find(params[:id])
+    render json: @user.as_json(include: :messages)
+  end
 
-  # def message
+  # def users_message
   #   @users = current_user.friends_all_plus
   #   render json: @users.as_json(include: :messages)
   # end

@@ -31,6 +31,7 @@ class UserList extends React.Component {
   getStateFromStores() {
     return {
       users: User.getUsers(),
+      // users: MessagesStore.getUserMessages(),
       // currentUser: UsersAction.loadCurrentUser(),
       openChatID: MessagesStore.getOpenChatUserID(),
     }
@@ -55,13 +56,13 @@ class UserList extends React.Component {
   componentDidMount() {
     MessagesStore.onChange(this.onChangeHandler)
     User.onChange(this.onChangeHandler)
-  // //   // UsersAction.onChange(this.onStoreChange.bind(this))
+    // UsersAction.onChange(this.onStoreChange.bind(this))
   }
 
   componentWillUnmount() {
     MessagesStore.offChange(this.onChangeHandler)
     User.offChange(this.onChangeHandler)
-  //   // UsersAction.offChange(this.onStoreChange.bind(this))
+    // UsersAction.offChange(this.onStoreChange.bind(this))
   }
 
   onStoreChange() {
@@ -70,6 +71,10 @@ class UserList extends React.Component {
 
   changeOpenChat(id) {
     MessagesAction.changeOpenChat(id)
+  }
+
+  loadUserMessages(id) {
+    MessagesAction.loadUserMessages(id)
   }
 
   render() {
@@ -84,19 +89,22 @@ class UserList extends React.Component {
         'user-list__item--active': openChatID === user.id,
       })
       return (
-        <li onClick={this.changeOpenChat.bind(this, user.id)}
-            key={user.id}
-            className={itemClasses}
-        >
-          <div className='user-list__item__picture'>
-            <img src={user.image ? '/user_images/' + user.image : 'assets/default_image.jpg' }/>
-          </div>
-          <div className='user-list__item__details'>
-            <div className='user-list__item__name'>
-              {user.name}
+        <div key={user.id} onClick={this.loadUserMessages.bind(this, user.id)}>
+          <li
+              // key={user.id}
+              onClick={this.changeOpenChat.bind(this, user.id)}
+              className={itemClasses}
+          >
+            <div className='user-list__item__picture'>
+              <img src={user.image ? '/user_images/' + user.image : 'assets/default_image.jpg' }/>
             </div>
-          </div>
-        </li>
+            <div className='user-list__item__details'>
+              <div className='user-list__item__name'>
+                {user.name}
+              </div>
+            </div>
+          </li>
+        </div>
       )
     }, this)
     return (

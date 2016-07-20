@@ -28,10 +28,6 @@ class User < ActiveRecord::Base
     friends_to_user + friends_from_user
   end
 
-  # def friends_all_plus
-  #   friends_to_user + friends_from_user + current_user
-  # end
-
   def friend?(user)
     self.from_friend?(user) || self.to_friend?(user)
   end

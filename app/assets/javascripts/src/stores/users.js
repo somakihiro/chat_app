@@ -12,15 +12,15 @@ class UserStore extends BaseStore {
     this.set('users', array)
   }
 
-  getCurrentUser() {
-    // return UsersAction.loadCurrentUser()
-    if (!this.get('currentUser')) this.setCurrentUser({})
-    return this.get('currentUser')
-  }
+  // getCurrentUser() {
+  //   // return UsersAction.loadCurrentUser()
+  //   if (!this.get('currentUser')) this.setCurrentUser({})
+  //   return this.get('currentUser')
+  // }
 
-  setCurrentUser(obj) {
-    this.set('currentUser', obj)
-  }
+  // setCurrentUser(obj) {
+  //   this.set('currentUser', obj)
+  // }
 }
 
 const User = new UserStore()
@@ -31,16 +31,18 @@ User.dispatchToken = Dispatcher.register(payload => {
       User.setUsers(payload.action.json)
       User.emitChange()
     },
-    LOAD_CURRENT_USER(payload) {
-      User.setCurrentUser(payload.action.json)
-      User.emitChange()
-    },
+
+    // LOAD_CURRENT_USER(payload) {
+    //   User.setCurrentUser(payload.action.json)
+    //   User.emitChange()
+    // },
+
     LOAD_SEARCH_USERS(payload) {
       User.setUsers(payload.action.json)
       User.emitChange()
     },
-    // LOAD_USER_ALL(payload) {
-    //   User.setUser(payload.action.json)
+    // LOAD_USERS_ALL(payload) {
+    //   User.setUsersAll(payload.action.json)
     //   User.emitChange()
     // }
     // LOAD_USER_ID(payload) {

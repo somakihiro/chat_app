@@ -2,6 +2,7 @@
 import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
 import User from './users'
+// import MessagesAction from '../actions/messages'
 
 // const messages = {
 //   2: {
@@ -88,14 +89,15 @@ class MessageStore extends BaseStore {
   //   return User.getUser()[this.getOpenChatUserID()].messages
   // }
 
-  getMessages() {
-    if (!this.get('messages')) this.setMessages([])
-    return this.get('messages')
+  getUserMessages() {
+    if (!this.get('userMessages')) this.setUserMessages({})
+    return this.get('userMessages')
   }
 
-  setMessages(array) {
-    this.set('messages', array)
+  setUserMessages(obj) {
+    this.set('userMessages', obj)
   }
+
 }
 
 const MessagesStore = new MessageStore()
@@ -105,6 +107,12 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
     UPDATE_OPEN_CHAT_ID(payload) {
       openChatID = payload.action.userID
       // messages[openChatID].lastAccess.currentUser = +new Date()
+      MessagesStore.emitChange()
+    },
+
+    LOAD_USER_MESSAGES(payload) {
+      // openChatID = payload.action.id
+      MessagesStore.setUserMessages(payload.action.json)
       MessagesStore.emitChange()
     },
     // sendMessage(payload) {
@@ -122,18 +130,20 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       // messages[userID].lastAccess.currentUser = +new Date()
     //   MessagesStore.emitChange()
     // },
-    LOAD_MESSAGES(payload) {
-      MessagesStore.setMessages(payload.action.json)
-      MessagesStore.emitChange()
-    },
+
+    // LOAD_MESSAGES(payload) {
+    //   MessagesStore.setUserMessages(payload.action.json)
+    //   MessagesStore.emitChange()
+    // },
+
     SAVE_MESSAGE(payload) {
-      const messages = MessagesStore.getMessages()
+      const messages = MessagesStore.getUserMessages()
       messages.push({
-        id: Math.floor(Math.random() * 1000000),
+        // id: Math.floor(Math.random() * 1000000),
         body: payload.action.body,
         to_user_id: payload.action.to_user_id,
       })
-      MessagesStore.setMessages(messages)
+      MessagesStore.setUserMessages(messages)
       MessagesStore.emitChange()
     },
   }

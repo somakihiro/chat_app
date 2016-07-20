@@ -21,7 +21,7 @@ export default {
       })
     })
   },
-  // loadUserAll() {
+  // loadUsersAll() {
   //   return new Promise((resolve, reject) => {
   //     request
   //     .get(`${APIEndpoints.USERS}/all`)
@@ -29,7 +29,7 @@ export default {
   //       if (!error && res.status === 200) {
   //         const json = JSON.parse(res.text)
   //         Dispatcher.handleServerAction({
-  //           type: ActionTypes.LOAD_USER_ALL,
+  //           type: ActionTypes.LOAD_USERS_ALL,
   //           json: json,
   //         })
   //         resolve(json)
@@ -75,6 +75,7 @@ export default {
       })
     })
   },
+
   loadSearchUsers() {
     return new Promise((resolve, reject) => {
       request

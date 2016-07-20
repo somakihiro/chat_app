@@ -6,6 +6,7 @@ export const APIEndpoints = {
   MESSAGES: APIRoot + '/messages',
   USERS: APIRoot + '/users',
   FRIENDSHIPS: APIRoot + '/friendships',
+  CURRENT_USER: APIRoot + '/current_user',
 }
 
 export const ActionTypes = keyMirror({
@@ -18,7 +19,8 @@ export const ActionTypes = keyMirror({
   LOAD_USERS: null,
   LOAD_CURRENT_USER: null,
   LOAD_SEARCH_USERS: null,
-  // LOAD_USER_ALL: null,
+  LOAD_USER_MESSAGES: null,
+  // LOAD_USERS_ALL: null,
   // LOAD_USER_ID: null,
   // LOAD_FRIEND_USER: null,
 

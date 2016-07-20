@@ -11,9 +11,11 @@ class MessagesBox extends React.Component {
 
   static get propTypes() {
     return {
-      users: React.PropTypes.array,
+      // users: React.PropTypes.array,
+      openChatID: React.PropTypes.number,
       currentUser: React.PropTypes.object,
       messages: React.PropTypes.array,
+      // userMessages: React.PropTypes.array,
     }
   }
 
@@ -67,9 +69,58 @@ class MessagesBox extends React.Component {
   render() {
     // const messagesLength = this.state.messages.length
     // const currentUserID = UsersAction.loadCurrentUser().id
-    const {currentUser, messages} = this.props
+    const {messages, currentUser, openChatID} = this.props
+      const userMessages = _.map(messages, (message) => {
+        const messageClasses = classNames({
+          'message-box__item': true,
+          'message-box__item--from-current': message.user_id === currentUser.id,
+          'clear': true,
+        })
+        if (message.to_user_id === currentUser.id || message.to_user_id === openChatID) {
+          return (
+            <li key={message.id} className={messageClasses}>
+              <div className='message-box__item__contents'>
+                {message.body}
+              </div>
+            </li>
+          )
+        }
+      })
 
-    const allMessages = _.map(messages, (message) => {
+    return (
+      <div className='message-box'>
+        <ul className='message-box__list'>
+          {userMessages}
+        </ul>
+        <ReplyBox />
+      </div>
+    )
+  }
+}
+
+export default MessagesBox
+    // // const user = users
+
+    // const userMessages = _.map(messages, (message) => {
+    //   const messageClasses = classNames({
+    //     'message-box__item': true,
+    //     // 'message-box__item--from-current': message.user_id === currentUser.id,
+    //     'clear': true,
+    //   })
+
+      // return (
+            // <li key={message.created_at} className={messageClasses}>
+            //   <div className='message-box__item__contents'>
+            //     {message.to_user_id === currentUser.id || message.to_user_id === openChatID ? message.body : null}
+            //   </div>
+            // </li>
+        // )
+
+      // const hoge = _.find(user, {id: user.id})
+      // if (!hoge) return []
+      // const foo = hoge.messages
+      // // })
+
     // const messages = _.map(this.state.users, (user) => {
     //   if(user.id === this.state.openChatID){
     //     _.map(user.messages, (message) => {
@@ -88,20 +139,20 @@ class MessagesBox extends React.Component {
     //     })
     //   }
     // })
-      const messageClasses = classNames({
-        'message-box__item': true,
-        'message-box__item--from-current': message.user_id === currentUser,
-        'clear': true,
-      })
+    //   const messageClasses = classNames({
+    //     'message-box__item': true,
+    //     'message-box__item--from-current': message.user_id === currentUser,
+    //     'clear': true,
+    //   })
 
-      return (
-        <li key={message.id} className={ messageClasses }>
-          <div className='message-box__item__contents'>
-            {message.body}
-          </div>
-        </li>
-      )
-    })
+    //   return (
+    //     <li key={message.id} className={messageClasses}>
+    //       <div className='message-box__item__contents'>
+    //         {message.body}
+    //       </div>
+    //     </li>
+    //   )
+    // })
 
     // const lastMessage = this.state.messages[messagesLength - 1]
 
@@ -117,15 +168,4 @@ class MessagesBox extends React.Component {
     //       )
     //   }
     // }
-    return (
-      <div className='message-box'>
-        <ul className='message-box__list'>
-          { allMessages }
-        </ul>
-        <ReplyBox />
-      </div>
-    )
-  }
-}
-
-export default MessagesBox
+    // })

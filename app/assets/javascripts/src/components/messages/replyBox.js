@@ -54,6 +54,10 @@ class ReplyBox extends React.Component {
     })
   }
 
+  // loaduserMessages(id) {
+  //   MessagesAction.loaduserMessages(id)
+  // }
+
   render() {
     const {value} = this.state
 
