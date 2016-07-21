@@ -5,7 +5,6 @@ export default class Search extends React.Component {
   constructor(props) {
     super(props)
     this.state = this.initialState
-    // this.handleChange = this.handleChange.bind(this)
   }
 
   get initialState() {

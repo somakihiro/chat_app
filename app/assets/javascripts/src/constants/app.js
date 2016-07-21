@@ -20,13 +20,6 @@ export const ActionTypes = keyMirror({
   LOAD_CURRENT_USER: null,
   LOAD_SEARCH_USERS: null,
   LOAD_USER_MESSAGES: null,
-  // LOAD_USERS_ALL: null,
-  // LOAD_USER_ID: null,
-  // LOAD_FRIEND_USER: null,
-
-  // friendships
-  // LOAD_FRIEND_SHIPS: null,
-  // SAVE_FRIEND: null,
 })
 
 export function CSRFToken() {

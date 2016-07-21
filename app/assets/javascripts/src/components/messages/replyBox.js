@@ -1,7 +1,7 @@
 import React from 'react'
 import MessagesStore from '../../stores/messages'
 import MessagesAction from '../../actions/messages'
-import CurrentUser from '../../stores/currentUser'
+import CurrentUserStore from '../../stores/currentUser'
 
 class ReplyBox extends React.Component {
 
@@ -12,22 +12,15 @@ class ReplyBox extends React.Component {
   }
 
   get initialState() {
-    // return {
-    //   value: '',
-    //   toUserID: MessagesStore.getOpenChatUserID(),
-    // }
     return this.getStateFromStores()
   }
 
   getStateFromStores() {
-    // const currentUserMessages = CurrentUser.getCurrentUser().messages
-    // const messageId = currentUserMessages ? currentUserMessages[currentUserMessages.length - 1].id + 1 : null
 
     return {
       value: '',
       toUserId: MessagesStore.getOpenChatUserID(),
-      userId: CurrentUser.getCurrentUser().id,
-      // id: messageId,
+      userId: CurrentUserStore.getCurrentUser().id,
     }
   }
 
@@ -45,12 +38,9 @@ class ReplyBox extends React.Component {
 
   handleKeyDown(e) {
     if (e.keyCode === 13) {
-      // MessagesAction.sendMessage(MessagesStore.getOpenChatUserID(), this.state.value)
       MessagesAction.saveMessage(this.state.value, this.state.toUserId, this.state.userId)
       this.setState({
         value: '',
-        // toUserId: MessagesStore.getOpenChatUserID(),
-        // userId: CurrentUser.getCurrentUser().id,
       })
     }
   }
@@ -60,10 +50,6 @@ class ReplyBox extends React.Component {
       value: e.target.value,
     })
   }
-
-  // loaduserMessages(id) {
-  //   MessagesAction.loaduserMessages(id)
-  // }
 
   render() {
     const {value} = this.state

@@ -1,22 +1,12 @@
 import React from 'react'
 import _ from 'lodash'
 import classNames from 'classnames'
-// import Utils from '../../utils'
 import MessagesStore from '../../stores/messages'
 import User from '../../stores/users'
 import MessagesAction from '../../actions/messages'
 import CurrentUserAction from '../../actions/currentUser'
-// import UsersAction from '../../actions/users'
 
 class UserList extends React.Component {
-
-  // static get propTypes() {
-  //   return {
-  //     // users: React.PropTypes.array,
-  //     currentUser: React.PropTypes.object,
-  //     openChatID: React.PropTypes.any,
-  //   }
-  // }
 
   constructor(props) {
     super(props)
@@ -26,14 +16,11 @@ class UserList extends React.Component {
 
   get initialState() {
     return this.getStateFromStores()
-    // return {users: User.getUsers()}
   }
 
   getStateFromStores() {
     return {
       users: User.getUsers(),
-      // users: MessagesStore.getUserMessages(),
-      // currentUser: UsersAction.loadCurrentUser(),
       openChatID: MessagesStore.getOpenChatUserID(),
     }
     // const allMessages = MessagesStore.getMessage()
@@ -57,13 +44,11 @@ class UserList extends React.Component {
   componentDidMount() {
     MessagesStore.onChange(this.onChangeHandler)
     User.onChange(this.onChangeHandler)
-    // UsersAction.onChange(this.onStoreChange.bind(this))
   }
 
   componentWillUnmount() {
     MessagesStore.offChange(this.onChangeHandler)
     User.offChange(this.onChangeHandler)
-    // UsersAction.offChange(this.onStoreChange.bind(this))
   }
 
   onStoreChange() {
@@ -79,13 +64,8 @@ class UserList extends React.Component {
     MessagesAction.loadUserMessages(id)
   }
 
-  // loadCurrentUser() {
-  //   CurrentUserAction.loadCurrentUser()
-  // }
-
   render() {
     const {users, openChatID} = this.state
-    // const {openChatID} = this.props
 
     const friendUsers = _.map(users, (user) => {
       const itemClasses = classNames({
@@ -97,12 +77,11 @@ class UserList extends React.Component {
       return (
         <div key={user.id} onClick={this.loadUserMessages.bind(this, user.id)}>
           <li
-              // key={user.id}
               onClick={this.changeOpenChat.bind(this, user.id)}
               className={itemClasses}
           >
             <div className='user-list__item__picture'>
-              <img src={user.image ? '/user_images/' + user.image : 'assets/default_image.jpg' }/>
+              <img src={user.image ? '/user_images/' + user.image : 'assets/default_image.jpg'}/>
             </div>
             <div className='user-list__item__details'>
               <div className='user-list__item__name'>
@@ -113,6 +92,7 @@ class UserList extends React.Component {
         </div>
       )
     }, this)
+
     return (
       <div className='user-list'>
         <ul className='user-list__list'>

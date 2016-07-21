@@ -2,7 +2,6 @@ import _ from 'lodash'
 import React from 'react'
 import User from '../../stores/users'
 import {CSRFToken} from '../../constants/app'
-// import FriendshipsAction from '../../actions/friendships'
 
 export default class UserList extends React.Component {
   static get propTypes() {
@@ -35,9 +34,6 @@ export default class UserList extends React.Component {
   onStoreChange() {
     this.setState(this.getStateFromStores())
   }
-  // saveFriend(id) {
-  //   FriendshipsAction.saveFriend(id)
-  // }
 
   render() {
     const {users} = this.state
@@ -46,9 +42,6 @@ export default class UserList extends React.Component {
     let allUsers = users
     const searchUserName = searchString.trim().toLowerCase()
     if (searchUserName.length > 0) {
-      // users = _.filter(users, (user) => {
-      //   return user.name.toLowerCase().match(searchString)
-      // })
       allUsers = _.filter(allUsers, (user) => {
         return user.name.toLowerCase().match(searchUserName)
       })

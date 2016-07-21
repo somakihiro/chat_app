@@ -21,42 +21,7 @@ export default {
       })
     })
   },
-  // loadUsersAll() {
-  //   return new Promise((resolve, reject) => {
-  //     request
-  //     .get(`${APIEndpoints.USERS}/all`)
-  //     .end((error, res) => {
-  //       if (!error && res.status === 200) {
-  //         const json = JSON.parse(res.text)
-  //         Dispatcher.handleServerAction({
-  //           type: ActionTypes.LOAD_USERS_ALL,
-  //           json: json,
-  //         })
-  //         resolve(json)
-  //       } else {
-  //         reject(res)
-  //       }
-  //     })
-  //   })
-  // },
-  // loadUserID(id) {
-  //   return new Promise((resolve, reject) => {
-  //     request
-  //     .get(`${APIEndpoints.USERS}/${id}`)
-  //     .end((error,res) => {
-  //       if (!error && res.status === 200) {
-  //         const json = JSON.parse(res.text)
-  //         Dispatcher.handleServerAction({
-  //           type: ActionTypes.LOAD_USER_ID,
-  //           json: json,
-  //         })
-  //         resolve(json)
-  //       } else {
-  //         reject(res)
-  //       }
-  //     })
-  //   })
-  // },
+
   loadCurrentUser() {
     return new Promise((resolve, reject) => {
       request
@@ -94,22 +59,4 @@ export default {
       })
     })
   },
-  // loadFriendUser() {
-  //   return new Promise((resolve, reject) => {
-  //     request
-  //     .get(`${APIEndpoints.USERS}/message`)
-  //     .end((error, res) => {
-  //       if (!error && res.status === 200) {
-  //         const json = JSON.parse(res.text)
-  //         Dispatcher.handleServerAction({
-  //           type: ActionTypes.LOAD_FRIEND_USER,
-  //           json: json,
-  //         })
-  //         resolve(json)
-  //       } else {
-  //         reject(res)
-  //       }
-  //     })
-  //   })
-  // },
 }
