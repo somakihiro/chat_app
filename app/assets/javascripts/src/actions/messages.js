@@ -56,20 +56,27 @@ export default {
   // //   })
   // // },
 
-  saveMessage(body, to_user_id) {
+  saveMessage(body, to_user_id, user_id) {
     return new Promise((resolve, reject) => {
       request
       .post(`${APIEndpoints.MESSAGES}`)
       .set('X-CSRF-Token', CSRFToken())
-      .send({body: body, to_user_id: to_user_id})
+      .send({
+              body,
+              to_user_id,
+              user_id,
+              // id,
+            })
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
           Dispatcher.handleServerAction({
             type: ActionTypes.SAVE_MESSAGE,
-            body: body,
-            to_user_id: to_user_id,
-            json: json,
+            body,
+            to_user_id,
+            user_id,
+            // id,
+            json,
           })
           resolve(json)
         } else {

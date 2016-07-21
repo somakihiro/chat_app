@@ -2,6 +2,7 @@
 import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
 import User from './users'
+import CurrentUser from './currentUser'
 // import MessagesAction from '../actions/messages'
 
 // const messages = {
@@ -137,13 +138,16 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
     // },
 
     SAVE_MESSAGE(payload) {
-      const messages = MessagesStore.getUserMessages()
+      const messages = CurrentUser.getCurrentUser().messages
+      // const messages = MessagesStore.getUserMessages().messages
       messages.push({
-        // id: Math.floor(Math.random() * 1000000),
+        id: Math.floor(Math.random() * 1000000),
+        // id: payload.action.id,
         body: payload.action.body,
         to_user_id: payload.action.to_user_id,
+        user_id: payload.action.user_id,
       })
-      MessagesStore.setUserMessages(messages)
+      // MessagesStore.setUserMessages(messages)
       MessagesStore.emitChange()
     },
   }

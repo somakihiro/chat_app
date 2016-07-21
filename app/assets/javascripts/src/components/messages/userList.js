@@ -5,6 +5,7 @@ import classNames from 'classnames'
 import MessagesStore from '../../stores/messages'
 import User from '../../stores/users'
 import MessagesAction from '../../actions/messages'
+import CurrentUserAction from '../../actions/currentUser'
 // import UsersAction from '../../actions/users'
 
 class UserList extends React.Component {
@@ -74,8 +75,13 @@ class UserList extends React.Component {
   }
 
   loadUserMessages(id) {
+    CurrentUserAction.loadCurrentUser()
     MessagesAction.loadUserMessages(id)
   }
+
+  // loadCurrentUser() {
+  //   CurrentUserAction.loadCurrentUser()
+  // }
 
   render() {
     const {users, openChatID} = this.state
