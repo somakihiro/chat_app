@@ -1,27 +1,26 @@
 import React from 'react'
 import _ from 'lodash'
 import classNames from 'classnames'
-// import Utils from '../../utils'
 import MessagesStore from '../../stores/messages'
 import User from '../../stores/users'
 import MessagesAction from '../../actions/messages'
-import UsersAction from '../../actions/users'
+import CurrentUserAction from '../../actions/currentUser'
 
 class UserList extends React.Component {
 
   constructor(props) {
     super(props)
     this.state = this.initialState
+    this.onChangeHandler = this.onStoreChange.bind(this)
   }
 
   get initialState() {
-    return this.getStateFromStore()
+    return this.getStateFromStores()
   }
 
-  getStateFromStore() {
+  getStateFromStores() {
     return {
-      user: User.getUser(),
-      currentUser: UsersAction.loadCurrentUser(),
+      users: User.getUsers(),
       openChatID: MessagesStore.getOpenChatUserID(),
     }
     // const allMessages = MessagesStore.getMessage()
@@ -43,54 +42,68 @@ class UserList extends React.Component {
   }
 
   componentDidMount() {
-    MessagesStore.onChange(this.onStoreChange.bind(this))
-    User.onChange(this.onStoreChange.bind(this))
-    // UsersAction.onChange(this.onStoreChange.bind(this))
+    MessagesStore.onChange(this.onChangeHandler)
+    User.onChange(this.onChangeHandler)
   }
+
   componentWillUnmount() {
-    MessagesStore.offChange(this.onStoreChange.bind(this))
-    User.offChange(this.onStoreChange.bind(this))
-    // UsersAction.offChange(this.onStoreChange.bind(this))
+    MessagesStore.offChange(this.onChangeHandler)
+    User.offChange(this.onChangeHandler)
   }
+
   onStoreChange() {
-    this.setState(this.getStateFromStore())
+    this.setState(this.getStateFromStores())
   }
+
   changeOpenChat(id) {
     MessagesAction.changeOpenChat(id)
   }
 
+  loadUserMessages(id) {
+    CurrentUserAction.loadCurrentUser()
+    MessagesAction.loadUserMessages(id)
+  }
+
   render() {
-    const users = _.map(this.state.user, (user) => {
+    const {users, openChatID} = this.state
+
+    const friendUsers = _.map(users, (user) => {
       const itemClasses = classNames({
         'user-list__item': true,
         'clear': true,
         // 'user-list__item--new': isNewMessage,
-        'user-list__item--active': this.state.openChatID === user.id,
+        'user-list__item--active': openChatID === user.id,
       })
       return (
-        <li onClick={ this.changeOpenChat.bind(this, user.id) }
-            key={ user.id }
-            className={ itemClasses }
-        >
-          <div className='user-list__item__picture'>
-            <img src={ user.image ? '/user_images/' + user.image : 'assets/default_image.jpg' } />
-          </div>
-          <div className='user-list__item__details'>
-            <div className='user-list__item__name'>
-              { user.name }
+        <div key={user.id} onClick={this.loadUserMessages.bind(this, user.id)}>
+          <li
+              onClick={this.changeOpenChat.bind(this, user.id)}
+              className={itemClasses}
+          >
+            <div className='user-list__item__picture'>
+              <img src={user.image ? '/user_images/' + user.image : 'assets/default_image.jpg'}/>
             </div>
-          </div>
-        </li>
+            <div className='user-list__item__details'>
+              <div className='user-list__item__name'>
+                {user.name}
+              </div>
+            </div>
+          </li>
+        </div>
       )
     }, this)
+
     return (
       <div className='user-list'>
         <ul className='user-list__list'>
-          { users }
+          {friendUsers}
          </ul>
       </div>
     )
   }
+}
+
+export default UserList
 
   //   this.state.messageList.sort((a, b) => {
   //     if (a.lastMessage.id > b.lastMessage.id) {
@@ -164,6 +177,3 @@ class UserList extends React.Component {
   //     </div>
   //   )
   // }
-}
-
-export default UserList

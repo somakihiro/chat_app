@@ -1,14 +1,15 @@
 import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
+// import UsersAction from '../actions/users'
 
 class UserStore extends BaseStore {
-  getUser() {
-    if (!this.get('user')) this.setUser([])
-    return this.get('user')
+  getUsers() {
+    if (!this.get('users')) this.setUsers([])
+    return this.get('users')
   }
 
-  setUser(array) {
-    this.set('user', array)
+  setUsers(array) {
+    this.set('users', array)
   }
 }
 
@@ -16,16 +17,13 @@ const User = new UserStore()
 
 User.dispatchToken = Dispatcher.register(payload => {
   const actions = {
-    LOAD_USER(payload) {
-      User.setUser(payload.action.json)
+    LOAD_USERS(payload) {
+      User.setUsers(payload.action.json)
       User.emitChange()
     },
-    LOAD_CURRENT_USER(payload) {
-      User.setUser(payload.action.json)
-      User.emitChange()
-    },
-    LOAD_SEARCH_USER(payload) {
-      User.setUser(payload.action.json)
+
+    LOAD_SEARCH_USERS(payload) {
+      User.setUsers(payload.action.json)
       User.emitChange()
     },
   }

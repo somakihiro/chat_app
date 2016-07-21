@@ -9,24 +9,16 @@ export default {
       userID: newUserID,
     })
   },
-  // sendMessage(message) {
-  //   Dispatcher.handleViewAction({
-  //     type: 'sendMessage',
-  //     // userID: userID,
-  //     message: message,
-  //     // timestamp: +new Date(),
-  //   })
-  // },
 
-  loadMessage() {
+  loadUserMessages(id) {
     return new Promise((resolve, reject) => {
       request
-      .get(`${APIEndpoints.MESSAGES}`)
+      .get(`${APIEndpoints.USERS}/${id}`)
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
           Dispatcher.handleServerAction({
-            type: ActionTypes.LOAD_MESSAGE,
+            type: ActionTypes.LOAD_USER_MESSAGES,
             json: json,
           })
           resolve(json)
@@ -36,19 +28,26 @@ export default {
       })
     })
   },
-  saveMessage(message) {
+
+  saveMessage(body, to_user_id, user_id) {
     return new Promise((resolve, reject) => {
       request
       .post(`${APIEndpoints.MESSAGES}`)
       .set('X-CSRF-Token', CSRFToken())
-      .send({message: message})
+      .send({
+              body,
+              to_user_id,
+              user_id,
+            })
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
           Dispatcher.handleServerAction({
             type: ActionTypes.SAVE_MESSAGE,
-            message: message,
-            json: json,
+            body,
+            to_user_id,
+            user_id,
+            json,
           })
           resolve(json)
         } else {
@@ -57,22 +56,4 @@ export default {
       })
     })
   },
-  // loadFriendShips() {
-  //   return new Promise((resolve, reject) => {
-  //     request
-  //     .get(`${APIEndpoints.FRIENDSHIPS}`)
-  //     .end((error, res) => {
-  //       if (!error && res.status === 200) {
-  //         const json = JSON.parse(res.text)
-  //         Dispatcher.handleServerAction({
-  //           type: ActionTypes.LOAD_FRIEND_SHIPS,
-  //           json: json,
-  //         })
-  //         resolve(json)
-  //       } else {
-  //         reject(res)
-  //       }
-  //     })
-  //   })
-  // },
 }

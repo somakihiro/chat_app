@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import React from 'react'
 import User from '../../stores/users'
-import FriendshipsAction from '../../actions/friendships'
+import {CSRFToken} from '../../constants/app'
 
 export default class UserList extends React.Component {
   static get propTypes() {
@@ -9,17 +9,18 @@ export default class UserList extends React.Component {
       searchString: React.PropTypes.string,
     }
   }
+
   constructor(props) {
     super(props)
     this.state = this.initialState
   }
 
   get initialState() {
-    return this.getStateFromStore()
+    return this.getStateFromStores()
   }
 
-  getStateFromStore() {
-    return {users: User.getUser()}
+  getStateFromStores() {
+    return {users: User.getUsers()}
   }
 
   componentDidMount() {
@@ -31,45 +32,35 @@ export default class UserList extends React.Component {
   }
 
   onStoreChange() {
-    this.setState(this.getStateFromStore())
-  }
-  saveFriend(id) {
-    FriendshipsAction.saveFriend(id)
+    this.setState(this.getStateFromStores())
   }
 
   render() {
-    var users = this.state.users
-    const searchString = this.props.searchString.trim().toLowerCase()
-    if (searchString.length > 0) {
-      users = _.filter(users, (user) => {
-        return user.name.toLowerCase().match(searchString)
+    const {users} = this.state
+    const {searchString} = this.props
+
+    let allUsers = users
+    const searchUserName = searchString.trim().toLowerCase()
+    if (searchUserName.length > 0) {
+      allUsers = _.filter(allUsers, (user) => {
+        return user.name.toLowerCase().match(searchUserName)
       })
     }
     return (
       <ul className='search_user_list'>
         {
-          _.map(users, (user) => {
+          _.map(allUsers, (user) => {
             return (
-                // <a
-                //   href='/'
-                //   key={ user.id }
-                // >
-                //   <li
-                //      className='search_user_list_id'
-                //      onClick={ this.saveFriend.bind(this, user.id) }
-                //   >
-                //     {user.name}
-                //   </li>
-                // </a>
-                <li key={ user.id }>
-                  <form action='/friendships' method='post'>
-                    <input name='to_user_id' value={ user.id } type='hidden' />
-                    <input type='submit' value={ user.name } className='search_user_list_id' />
-                  </form>
-                </li>
+              <li key={user.id}>
+                <form action='/friendships' method='post'>
+                  <input type='hidden' name='authenticity_token' value={CSRFToken()} />
+                  <input name='to_user_id' value={user.id} type='hidden' />
+                  <input type='submit' value={user.name} className='search_user_list_id' />
+                </form>
+              </li>
             )
           })
-         }
+        }
       </ul>
     )
   }

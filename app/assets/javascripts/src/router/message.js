@@ -1,32 +1,29 @@
 import ReactDecorator from '../base/react_decorator'
 import BaseRouter from '../base/router'
-import App from '../app'
+import App from '../components/messages/app'
 import MessagesAction from '../actions/messages'
 import UsersAction from '../actions/users'
-import FriendshipsAction from '../actions//friendships'
+import MessagesStore from '../stores/messages'
+import CurrentUserAction from '../actions/currentUser'
 
 export default class CardRouter extends BaseRouter {
   register() {
-    this.route('/', this.decorateApp, this.loadMessages, this.loadUsers, this.loadCurrentUser, this.loadFriendShips)
+    this.route('/', this.decorateApp, this.loadUserMessages, this.loadUsers, this.loadCurrentUser)
   }
 
-  loadMessages(ctx, next) {
-    MessagesAction.loadMessage()
+  loadUserMessages(ctx, next) {
+    const openChatId = MessagesStore.getOpenChatUserID()
+    MessagesAction.loadUserMessages(openChatId)
     next()
   }
 
   loadUsers(ctx, next) {
-    UsersAction.loadUser()
+    UsersAction.loadUsers()
     next()
   }
 
-  loadCurrentUsers(ctx, next) {
-    UsersAction.loadCurrentUser()
-    next()
-  }
-
-  loadFriendships(ctx, next) {
-    FriendshipsAction.loadFriendships()
+  loadCurrentUser(ctx, next) {
+    CurrentUserAction.loadCurrentUser()
     next()
   }
 
