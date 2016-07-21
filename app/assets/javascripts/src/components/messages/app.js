@@ -28,14 +28,14 @@ class App extends React.Component {
     // const userMessages = MessagesStore.getUserMessages()
     const currentUser = CurrentUser.getCurrentUser()
     if (!currentUser) return {}
-    const currentUserMessages = currentUser.messages? currentUser.messages : []
+    const currentUserMessages = currentUser.messages ? currentUser.messages : []
     // if (!currentUserMessages) return []
     // if (!currentUser) return {}
     // if (!currentUserMessages) return []
     // if (!currentUserMessages) return []
     const users = MessagesStore.getUserMessages()
     if (!users) return {}
-    const openUserMessages = users.messages? users.messages : []
+    const openUserMessages = users.messages ? users.messages : []
     // if (!openUserMessages) return []
     // const messages = _.map(users, (user) => { // [{id: , name: , messages:[{}]}, {}]
     //   return user.messages // [Array[85], Array[3]] [[{id: , body: ,},{},{}...],[{},{},{}]]
@@ -48,7 +48,7 @@ class App extends React.Component {
     // if (!openUser) return {}
     // const openUserMessages = openUser.messages
     const allMessages = _.concat(currentUserMessages, openUserMessages)
-    const messages = _.sortBy(allMessages, (message) => {return message.created_at})
+    const messages = _.sortBy(allMessages, (message) => { return message.created_at })
     // if (messages.length < 0) return []
     // const openUser = MessagesAction.loadUserMessages(openChatID)
     // if (!openUser) return {}

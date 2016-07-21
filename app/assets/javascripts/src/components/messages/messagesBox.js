@@ -70,22 +70,23 @@ class MessagesBox extends React.Component {
     // const messagesLength = this.state.messages.length
     // const currentUserID = UsersAction.loadCurrentUser().id
     const {messages, currentUser, openChatID} = this.props
-      const userMessages = _.map(messages, (message) => {
-        const messageClasses = classNames({
-          'message-box__item': true,
-          'message-box__item--from-current': message.user_id === currentUser.id,
-          'clear': true,
-        })
-        if (message.to_user_id === currentUser.id || message.to_user_id === openChatID) {
-          return (
-            <li key={message.id} className={messageClasses}>
-              <div className='message-box__item__contents'>
-                {message.body}
-              </div>
-            </li>
-          )
-        }
+
+    const userMessages = _.map(messages, (message) => {
+      const messageClasses = classNames({
+        'message-box__item': true,
+        'message-box__item--from-current': message.user_id === currentUser.id,
+        'clear': true,
       })
+      if (message.to_user_id === currentUser.id || message.to_user_id === openChatID) {
+        return (
+          <li key={message.id} className={messageClasses}>
+            <div className='message-box__item__contents'>
+              {message.body}
+            </div>
+          </li>
+        )
+      }
+    })
 
     return (
       <div className='message-box'>
