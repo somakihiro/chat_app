@@ -24,6 +24,12 @@ class User < ActiveRecord::Base
     from_user_friendships.find_or_create_by(to_user_id: user.id)
   end
 
+  def break_off_friend(user)
+    # binding.pry
+    from_user_friendship = from_user_friendships.find_by(to_user_id: user.id)
+    from_user_friendship.destroy if from_user_friendships
+  end
+
   def friends_all
     friends_to_user + friends_from_user
   end

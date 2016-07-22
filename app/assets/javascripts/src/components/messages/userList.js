@@ -5,6 +5,7 @@ import MessagesStore from '../../stores/messages'
 import User from '../../stores/users'
 import MessagesAction from '../../actions/messages'
 import CurrentUserAction from '../../actions/currentUser'
+import {CSRFToken} from '../../constants/app'
 
 class UserList extends React.Component {
 
@@ -87,6 +88,11 @@ class UserList extends React.Component {
               <div className='user-list__item__name'>
                 {user.name}
               </div>
+              <form action={`/friendships/${user.id}`} method='post'>
+                <input type='hidden' name='authenticity_token' value={CSRFToken()} />
+                <input type='hidden' name='_method' value='delete' />
+                <input type='submit' value='削除' className='user-list__item__delete btn btn-danger' />
+              </form>
             </div>
           </li>
         </div>
