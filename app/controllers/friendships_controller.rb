@@ -12,8 +12,7 @@ class FriendshipsController < ApplicationController
   end
 
   def destroy
-    # binding.pry
-    @user = current_user.from_user_friendships.find_by(to_user_id: params[:id]).to_user
+    @user = current_user.from_user_friendships.find_by(to_user_id: params[:id]) ? current_user.from_user_friendships.find_by(to_user_id: params[:id]).to_user : current_user.to_user_friendships.find_by(from_user_id: params[:id]).from_user
     current_user.break_off_friend(@user)
     redirect_to root_path
   end
