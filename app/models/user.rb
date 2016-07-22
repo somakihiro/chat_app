@@ -27,8 +27,8 @@ class User < ActiveRecord::Base
   def break_off_friend(user)
     # from_user_friendship = from_user_friendships.find_by(to_user_id: user.id) ? from_user_friendships.find_by(to_user_id: user.id) : to_user_friendships.find_by(from_user_id: user.id)
     # from_user_friendship = self.find_friendship_for(user)
-    from_user_friendship = from_user_friendships.find_by(to_user_id: user.id) || to_user_friendships.find_by(from_user_id: user.id)
-    from_user_friendship.destroy if from_user_friendships
+    friendship = from_user_friendships.find_by(to_user_id: user.id) || to_user_friendships.find_by(from_user_id: user.id)
+    friendship.destroy if from_user_friendships
   end
 
   def find_friendship_for(user_id)
