@@ -62,6 +62,14 @@ class ReplyBox extends React.Component {
           className='reply-box__input'
           placeholder='Type message to reply..'
         />
+        {/*
+        <input
+          type='file'
+          ref='value'
+          onKeyDown={this.handleKeyDown.bind(this)}
+          onChange={this.updateValue.bind(this)}
+        />
+        */}
         <span className='reply-box__tip'>
           Press <span className='reply-box__tip__button'>Enter</span> to send
         </span>
