@@ -35,10 +35,10 @@ export default {
       .post(`${APIEndpoints.MESSAGES}`)
       .set('X-CSRF-Token', CSRFToken())
       .send({
-              body,
-              to_user_id,
-              user_id,
-            })
+        body,
+        to_user_id,
+        user_id,
+      })
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)

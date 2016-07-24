@@ -28,7 +28,7 @@ Rails.application.routes.draw do
         # get :message
       end
     end
-    resources :friendships, only: [:index, :create]
+    # resources :friendships, only: [:index, :create]
     resources :current_user, only: [:index]
   end
 end
