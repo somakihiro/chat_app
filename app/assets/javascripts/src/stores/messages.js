@@ -65,6 +65,7 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
         body: payload.action.body,
         to_user_id: payload.action.to_user_id,
         user_id: payload.action.user_id,
+        image: payload.action.image,
       })
       MessagesStore.emitChange()
     },

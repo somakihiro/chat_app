@@ -29,7 +29,7 @@ export default {
     })
   },
 
-  saveMessage(body, to_user_id, user_id) {
+  saveMessage(body, to_user_id, user_id, image) {
     return new Promise((resolve, reject) => {
       request
       .post(`${APIEndpoints.MESSAGES}`)
@@ -47,6 +47,7 @@ export default {
             body,
             to_user_id,
             user_id,
+            image,
             json,
           })
           resolve(json)

@@ -18,6 +18,7 @@ class ReplyBox extends React.Component {
   getStateFromStores() {
     return {
       value: '',
+      image: '',
       toUserId: MessagesStore.getOpenChatUserID(),
       userId: CurrentUserStore.getCurrentUser().id,
     }
@@ -50,6 +51,19 @@ class ReplyBox extends React.Component {
     })
   }
 
+  imagePost() {
+    MessagesAction.saveMessage(this.state.image, this.state.toUserId, this.state.userid)
+    this.setState({
+      image: '',
+    })
+  }
+
+  updateImage(e) {
+    this.setState({
+      image: e.target.image,
+    })
+  }
+
   render() {
     const {value} = this.state
 
@@ -62,14 +76,16 @@ class ReplyBox extends React.Component {
           className='reply-box__input'
           placeholder='Type message to reply..'
         />
-        {/*
-        <input
-          type='file'
-          ref='value'
-          onKeyDown={this.handleKeyDown.bind(this)}
-          onChange={this.updateValue.bind(this)}
-        />
-        */}
+        <div className='reply-box__image'>
+          <input
+            className='image-select-btn'
+            type='file'
+            // ref='value'
+            // onKeyDown={this.handleKeyDown.bind(this)}
+            // onChange={this.updateValue.bind(this)}
+          />
+          <button className='image-post-btn btn btn-primary' type='button'>画像送信</button>
+        </div>
         <span className='reply-box__tip'>
           Press <span className='reply-box__tip__button'>Enter</span> to send
         </span>
