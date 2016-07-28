@@ -5,10 +5,18 @@ class Api::MessagesController < ApplicationController
   end
 
   def create
-    # @message = current_user.messages.build(body: params[:body])
+    binding.pry
     @message = current_user.messages.build(message_params)
     @message.save
     render json: { message: @message }
+  end
+
+  def upload_image
+    @image_message = current_user.messages.build(params[:id])
+    @image_message.set_to_user_id(params[:to_user_id])
+    @image_message.set_image(params[:image])
+    @image_message.save
+    render json: {message: @message}
   end
 
   private

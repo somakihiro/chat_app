@@ -19,7 +19,11 @@ Rails.application.routes.draw do
 
   # APIルーティング
   namespace :api, defaults: { format: :json } do
-    resources :messages, only: [:index, :create]
+    resources :messages, only: [:index, :create] do
+      collection do
+        post :upload_image
+      end
+    end
     resources :users, only: [:index, :show] do
       collection do
         get :search

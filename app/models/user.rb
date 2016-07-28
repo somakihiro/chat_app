@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
 
   def set_image(file)
     return if file.nil?
+    # binding.pry
     file_name = file.original_filename
     File.open("public/user_images/#{file_name}", "wb") {|f|f.write(file.read)}
     self.image = file_name

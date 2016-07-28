@@ -18,7 +18,6 @@ class ReplyBox extends React.Component {
   getStateFromStores() {
     return {
       value: '',
-      image: '',
       toUserId: MessagesStore.getOpenChatUserID(),
       userId: CurrentUserStore.getCurrentUser().id,
     }
@@ -38,7 +37,7 @@ class ReplyBox extends React.Component {
 
   handleKeyDown(e) {
     if (e.keyCode === 13) {
-      MessagesAction.saveMessage(this.state.value, this.state.toUserId, this.state.userId)
+      MessagesAction.saveMessage(this.state.value, this.state.toUserId, this.state.userId, this.state.image)
       this.setState({
         value: '',
       })
@@ -51,17 +50,11 @@ class ReplyBox extends React.Component {
     })
   }
 
-  imagePost() {
-    MessagesAction.saveMessage(this.state.image, this.state.toUserId, this.state.userid)
-    this.setState({
-      image: '',
-    })
-  }
-
-  updateImage(e) {
-    this.setState({
-      image: e.target.image,
-    })
+  uploadImageChat(e) {
+    const inputDOM = e.target
+    if (!inputDOM.files.length) return
+    const file = inputDOM.files[0]
+    MessagesAction.saveImageChat(file, this.state.toUserId, this.state.userId)
   }
 
   render() {
@@ -80,11 +73,9 @@ class ReplyBox extends React.Component {
           <input
             className='image-select-btn'
             type='file'
-            // ref='value'
-            // onKeyDown={this.handleKeyDown.bind(this)}
-            // onChange={this.updateValue.bind(this)}
+            ref='image'
+            onChange={this.uploadImageChat.bind(this)}
           />
-          <button className='image-post-btn btn btn-primary' type='button'>画像送信</button>
         </div>
         <span className='reply-box__tip'>
           Press <span className='reply-box__tip__button'>Enter</span> to send
