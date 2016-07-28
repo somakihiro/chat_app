@@ -61,8 +61,17 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       const messages = CurrentUserStore.getCurrentUser().messages
       messages.push({
         id: Math.floor(Math.random() * 1000000),
-        // id: payload.action.id,
         body: payload.action.body,
+        to_user_id: payload.action.to_user_id,
+        user_id: payload.action.user_id,
+      })
+      MessagesStore.emitChange()
+    },
+
+    SAVE_IMAGE_CHAT(payload) {
+      const messages = CurrentUserStore.getCurrentUser().messages
+      messages.push({
+        image: payload.action.image,
         to_user_id: payload.action.to_user_id,
         user_id: payload.action.user_id,
       })
