@@ -7,8 +7,4 @@ class Message < ActiveRecord::Base
     File.open("public/message_images/#{file_name}", "wb") {|f|f.write(file.read)}
     self.image = file_name
   end
-
-  def set_to_user_id(id)
-    self.to_user_id = id
-  end
 end
