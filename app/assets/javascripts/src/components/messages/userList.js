@@ -65,6 +65,11 @@ class UserList extends React.Component {
     MessagesAction.loadUserMessages(id)
   }
 
+  deleteChatConfirm() {
+    const confirmMessage = confirm('sakujo')
+    return confirmMessage
+  }
+
   render() {
     const {users, openChatID} = this.state
 
@@ -89,9 +94,22 @@ class UserList extends React.Component {
                 <a href={`users/${user.id}`} className='user-list-name'>{user.name}</a>
               </div>
               <form action={`/friendships/${user.id}`} method='post'>
-                <input type='hidden' name='authenticity_token' value={CSRFToken()} />
-                <input type='hidden' name='_method' value='delete' />
-                <input type='submit' value='削除' className='user-list__item__delete btn btn-danger' />
+                <input
+                  type='hidden'
+                  name='authenticity_token'
+                  value={CSRFToken()}
+                />
+                <input
+                  type='hidden'
+                  name='_method'
+                  value='delete'
+                />
+                <input
+                  type='submit'
+                  value='削除'
+                  className='user-list__item__delete btn btn-danger'
+                  onClick={this.deleteChatConfirm().bind(this)}
+                />
               </form>
             </div>
           </li>
