@@ -1,11 +1,15 @@
 .user-list {
   position: absolute;
-  top: 60px;
+  top: 50px;
   left: 0;
   bottom: 0;
   width: 300px;
-  background: rgba( 0, 0, 0, 0.03 );
+  background: #fff;
   border-right: 1px solid rgba( 0, 0, 0, 0.1 );
+
+  &-name {
+    color: #000;
+  }
 
   &__item {
     padding: 14px 10px 14px 15px;
@@ -23,25 +27,25 @@
     }
 
     &--active {
-      background: #93C26D;
+      background: rgba(0, 0, 0, .05);
       color: #fff;
-      font-weight: 500;
+      // font-weight: 500;
       position: relative;
       border-top: 1px solid rgba( 0, 0, 0, 0.1 );
       margin-top: -1px;
 
-      &:before {
-        width: 0;
-        height: 0;
-        border-style: solid;
-        border-width: 40px 0 40px 20px;
-        border-color: transparent transparent transparent #93C26D;
-        position: absolute;
-        display: block;
-        right: -20px;
-        top: 0;
-        content: " ";
-      }
+      // &:before {
+      //   width: 0;
+      //   height: 0;
+      //   border-style: solid;
+      //   border-width: 40px 0 40px 20px;
+      //   border-color: transparent transparent transparent #93C26D;
+      //   position: absolute;
+      //   display: block;
+      //   right: -20px;
+      //   top: 0;
+      //   content: " ";
+      // }
     }
 
     &__picture {

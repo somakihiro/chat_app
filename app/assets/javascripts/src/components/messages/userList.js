@@ -86,7 +86,7 @@ class UserList extends React.Component {
             </div>
             <div className='user-list__item__details'>
               <div className='user-list__item__name'>
-                {user.name}
+                <a href={`users/${user.id}`} className='user-list-name'>{user.name}</a>
               </div>
               <form action={`/friendships/${user.id}`} method='post'>
                 <input type='hidden' name='authenticity_token' value={CSRFToken()} />
@@ -100,11 +100,11 @@ class UserList extends React.Component {
     }, this)
 
     return (
-      <div className='user-list'>
-        <ul className='user-list__list'>
-          {friendUsers}
-         </ul>
-      </div>
+        <div className='user-list'>
+          <ul className='user-list__list'>
+            {friendUsers}
+           </ul>
+        </div>
     )
   }
 }

@@ -56,7 +56,6 @@ class App extends React.Component {
   render() {
     return (
         <div className='app'>
-          <Header />
           <UserList />
           <MessagesBox {...this.state} />
         </div>
