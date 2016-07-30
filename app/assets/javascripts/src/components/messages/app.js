@@ -3,7 +3,6 @@ import _ from 'lodash'
 import User from '../../stores/users'
 import MessagesStore from '../../stores/messages'
 import CurrentUserStore from '../../stores/currentUser'
-import Header from './header'
 import UserList from './userList'
 import MessagesBox from './messagesBox'
 

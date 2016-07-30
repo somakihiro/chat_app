@@ -65,9 +65,12 @@ class UserList extends React.Component {
     MessagesAction.loadUserMessages(id)
   }
 
-  deleteChatConfirm() {
-    const confirmMessage = confirm('sakujo')
-    return confirmMessage
+  deleteChatConfirm(e) {
+    if(confirm('本当に削除しますか？(チャットの履歴は残ります。)')) {
+      return true
+    } else {
+      e.preventDefault()
+    }
   }
 
   render() {
@@ -83,11 +86,11 @@ class UserList extends React.Component {
       return (
         <div key={user.id} onClick={this.loadUserMessages.bind(this, user.id)}>
           <li
-              onClick={this.changeOpenChat.bind(this, user.id)}
-              className={itemClasses}
+            onClick={this.changeOpenChat.bind(this, user.id)}
+            className={itemClasses}
           >
             <div className='user-list__item__picture'>
-              <img src={user.image ? '/user_images/' + user.image : 'assets/default_image.jpg'}/>
+              <img src={user.image ? '/user_images/' + user.image : 'assets/default_image.jpg'} />
             </div>
             <div className='user-list__item__details'>
               <div className='user-list__item__name'>
@@ -108,7 +111,7 @@ class UserList extends React.Component {
                   type='submit'
                   value='削除'
                   className='user-list__item__delete btn btn-danger'
-                  onClick={this.deleteChatConfirm().bind(this)}
+                  onClick={this.deleteChatConfirm.bind(this)}
                 />
               </form>
             </div>
