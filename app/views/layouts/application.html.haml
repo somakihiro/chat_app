@@ -3,6 +3,7 @@
   %head
     %title ChatApp
     %link{:rel => :stylesheet, :href => 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'}
+    %link{ href: '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', rel: 'stylesheet' }
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application'
     = javascript_include_tag '/assets/javascripts/boot.js'
@@ -22,7 +23,5 @@
                 %span.caret
               %ul.dropdown-menu.user-menu-box{role: 'menu'}
                 %li{class: 'user-menu-list', role: 'presentation'}= link_to 'マイページ', current_user
-                / %li{class: 'user-menu-list', role: 'presentation'}= link_to 'ユーザー検索', search_users_path, data: { no_turbolink: true }
-                / %li{class: 'user-menu-list', role: 'presentation'}= link_to 'プロフィール編集', edit_user_registration_path
                 %li{class: 'user-menu-list', role: 'presentation'}= link_to 'ログアウト', destroy_user_session_path, :method => :delete
     = yield

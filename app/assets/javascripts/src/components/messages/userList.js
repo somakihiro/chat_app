@@ -76,6 +76,7 @@ class UserList extends React.Component {
   render() {
     const {users, openChatID} = this.state
 
+    const icon = (<i className="fa fa-times-circle remove-chat-btn" aria-hidden="true" />)
     const friendUsers = _.map(users, (user) => {
       const itemClasses = classNames({
         'user-list__item': true,
@@ -89,6 +90,24 @@ class UserList extends React.Component {
             onClick={this.changeOpenChat.bind(this, user.id)}
             className={itemClasses}
           >
+            <form action={`/friendships/${user.id}`} method='post'>
+              <input
+                type='hidden'
+                name='authenticity_token'
+                value={CSRFToken()}
+              />
+              <input
+                type='hidden'
+                name='_method'
+                value='delete'
+              />
+              <input
+                type='submit'
+                value='&#xf057;'
+                className='remove-chat-btn'
+                onClick={this.deleteChatConfirm.bind(this)}
+              />
+            </form>
             <div className='user-list__item__picture'>
               <img src={user.image ? '/user_images/' + user.image : 'assets/default_image.jpg'} />
             </div>
@@ -96,24 +115,6 @@ class UserList extends React.Component {
               <div className='user-list__item__name'>
                 <a href={`users/${user.id}`} className='user-list-name'>{user.name}</a>
               </div>
-              <form action={`/friendships/${user.id}`} method='post'>
-                <input
-                  type='hidden'
-                  name='authenticity_token'
-                  value={CSRFToken()}
-                />
-                <input
-                  type='hidden'
-                  name='_method'
-                  value='delete'
-                />
-                <input
-                  type='submit'
-                  value='削除'
-                  className='user-list__item__delete btn btn-danger'
-                  onClick={this.deleteChatConfirm.bind(this)}
-                />
-              </form>
             </div>
           </li>
         </div>
