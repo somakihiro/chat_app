@@ -65,6 +65,12 @@ class UserList extends React.Component {
     MessagesAction.loadUserMessages(id)
   }
 
+  deleteChatConfirm(e) {
+    if (!confirm('本当に削除しますか？(チャットの履歴は残ります。)')) {
+      e.preventDefault()
+    }
+  }
+
   render() {
     const {users, openChatID} = this.state
 
@@ -78,21 +84,34 @@ class UserList extends React.Component {
       return (
         <div key={user.id} onClick={this.loadUserMessages.bind(this, user.id)}>
           <li
-              onClick={this.changeOpenChat.bind(this, user.id)}
-              className={itemClasses}
+            onClick={this.changeOpenChat.bind(this, user.id)}
+            className={itemClasses}
           >
+            <form action={`/friendships/${user.id}`} method='post'>
+              <input
+                type='hidden'
+                name='authenticity_token'
+                value={CSRFToken()}
+              />
+              <input
+                type='hidden'
+                name='_method'
+                value='delete'
+              />
+              <input
+                type='submit'
+                value='&#xf057;'
+                className='remove-chat-btn'
+                onClick={this.deleteChatConfirm.bind(this)}
+              />
+            </form>
             <div className='user-list__item__picture'>
-              <img src={user.image ? '/user_images/' + user.image : 'assets/default_image.jpg'}/>
+              <img src={user.image ? '/user_images/' + user.image : 'assets/default_image.jpg'} />
             </div>
             <div className='user-list__item__details'>
               <div className='user-list__item__name'>
-                {user.name}
+                <a href={`users/${user.id}`} className='user-list-name'>{user.name}</a>
               </div>
-              <form action={`/friendships/${user.id}`} method='post'>
-                <input type='hidden' name='authenticity_token' value={CSRFToken()} />
-                <input type='hidden' name='_method' value='delete' />
-                <input type='submit' value='削除' className='user-list__item__delete btn btn-danger' />
-              </form>
             </div>
           </li>
         </div>
@@ -100,11 +119,11 @@ class UserList extends React.Component {
     }, this)
 
     return (
-      <div className='user-list'>
-        <ul className='user-list__list'>
-          {friendUsers}
-         </ul>
-      </div>
+        <div className='user-list'>
+          <ul className='user-list__list'>
+            {friendUsers}
+           </ul>
+        </div>
     )
   }
 }

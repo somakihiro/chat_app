@@ -1,9 +1,54 @@
 .header {
-  height: 60px;
-  background: #2AADE5;
-  position: absolute;
+  height: 50px;
+  font-size: 1.15em;
+  background: #f8f8f8;
+  border-bottom: 1px solid #e0e0e0;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 998;
+}
+
+.header-left {
+  float: left;
+  line-height: 50px;
+  padding-left: 30px;
+}
+
+.header-logo {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.header-logo-link {
+  color: #000;
+}
+
+.header-logo-link:hover {
+  text-decoration: none;
+  color: #000;
+}
+
+.header-right {
+  float: right;
+  line-height: 50px;
+  padding-right: 30px;
+}
+
+.search-user-btn {
+  padding: 3px;
+}
+
+.search-user-btn a {
+  color: #5e5e5e;
+}
+
+.user-menu-box {
+  left: auto !important;
+  right: 0;
+}
+
+.user-menu-list {
+  padding: 10px 0;
 }
