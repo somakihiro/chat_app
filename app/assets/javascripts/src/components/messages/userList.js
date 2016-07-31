@@ -66,9 +66,7 @@ class UserList extends React.Component {
   }
 
   deleteChatConfirm(e) {
-    if(confirm('本当に削除しますか？(チャットの履歴は残ります。)')) {
-      return true
-    } else {
+    if (!confirm('本当に削除しますか？(チャットの履歴は残ります。)')) {
       e.preventDefault()
     }
   }
@@ -76,7 +74,6 @@ class UserList extends React.Component {
   render() {
     const {users, openChatID} = this.state
 
-    const icon = (<i className="fa fa-times-circle remove-chat-btn" aria-hidden="true" />)
     const friendUsers = _.map(users, (user) => {
       const itemClasses = classNames({
         'user-list__item': true,
