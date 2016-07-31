@@ -50,8 +50,14 @@ export default class UserList extends React.Component {
       <ul className='search_user_list'>
         {
           _.map(allUsers, (user) => {
+            // const user_image = (<img src={user.image ? `/user_images/${user.image}` : 'assets/default_image.jpg'} />)
             return (
               <li key={user.id}>
+                {/*<a data-method='post' href='/friendships'>
+                  <img src={`/user_images/${user.image}`} />
+                  {user.name}
+                </a>
+              */}
                 <form action='/friendships' method='post'>
                   <input type='hidden' name='authenticity_token' value={CSRFToken()} />
                   <input name='to_user_id' value={user.id} type='hidden' />
