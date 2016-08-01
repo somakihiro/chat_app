@@ -84,7 +84,7 @@
   margin-top: 30px;
 }
 
-// パスワードリセットページ
+// パスワードリセット
 .password-reset-wrapper {
   width: 50%;
   margin-left: auto;
@@ -104,6 +104,13 @@
 
 .password-reset-btn {
   margin-bottom: 15px !important;
+}
+
+.password-reset-notice {
+  background-color: #e2f9ee;
+  padding: 15px;
+  border-radius: 4px;
+  margin: 10px;
 }
 
 // ユーザー検索ぺージ
