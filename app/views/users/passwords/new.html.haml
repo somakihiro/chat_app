@@ -1,0 +1,11 @@
+.password-reset-wrapper
+  %h2.password-reset-title パスワードをリセット
+  %p ご登録いただいたメールアドレスを入力してください。
+  %p メールアドレス宛にパスワード変更ページのURLが記載されたメールを送信します。
+  = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+    = devise_error_messages!
+    .form-group
+      = f.email_field :email, class: 'form-control password-reset-email', autofocus: true, placeholder: 'メールアドレス'
+    .actions
+      = f.submit 'パスワードをリセット', class: 'btn btn-info password-reset-btn'
+  = render "devise/shared/links"

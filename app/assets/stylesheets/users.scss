@@ -84,6 +84,28 @@
   margin-top: 30px;
 }
 
+// パスワードリセットページ
+.password-reset-wrapper {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 60px;
+}
+
+.password-reset-title {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 7px;
+  margin-bottom: 25px;
+}
+
+.password-reset-email {
+  margin-top: 25px;
+}
+
+.password-reset-btn {
+  margin-bottom: 15px !important;
+}
+
 // ユーザー検索ぺージ
 .search {
   text-align: center;
