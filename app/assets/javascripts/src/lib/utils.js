@@ -1,4 +1,3 @@
-import React from 'react'
 import _ from 'lodash'
 import $ from '../vendor/jquery'
 import {CSRFToken} from '../constants/app'
@@ -24,12 +23,12 @@ const ChatAppModule = {
 
   patch: (path, params) => {
     params['_method'] = 'patch'
-    ProgateModule.post(path, params)
+    ChatAppModule.post(path, params)
   },
 
   delete: (path) => {
     const params = {'_method': 'delete'}
-    ProgateModule.post(path, params)
+    ChatAppModule.post(path, params)
   },
 }
 
