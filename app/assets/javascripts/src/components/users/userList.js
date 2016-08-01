@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import React from 'react'
 import User from '../../stores/users'
-import {CSRFToken} from '../../constants/app'
+import ChatAppModule from '../../lib/utils'
 
 export default class UserList extends React.Component {
   static get propTypes() {
@@ -35,6 +35,12 @@ export default class UserList extends React.Component {
     this.setState(this.getStateFromStores())
   }
 
+  onSubmitHandler(to_user_id) {
+    _.map(this.state.users, (user) => {
+      ChatAppModule.post('/friendships', {'to_user_id': to_user_id})
+    })
+  }
+
   render() {
     const {users} = this.state
     const {searchString} = this.props
@@ -50,19 +56,12 @@ export default class UserList extends React.Component {
       <ul className='search_user_list'>
         {
           _.map(allUsers, (user) => {
-            // const user_image = (<img src={user.image ? `/user_images/${user.image}` : 'assets/default_image.jpg'} />)
             return (
-              <li key={user.id}>
-                {/*<a data-method='post' href='/friendships'>
-                  <img src={`/user_images/${user.image}`} />
+              <li className='search_user_list_item' key={user.id}>
+                <div className='search_user_list_result' onClick={this.onSubmitHandler.bind(this, user.id)}>
+                  <img className='search_user_list_result_image' src={user.image ? '/user_images/' + user.image : '/assets/default_image.jpg'} />
                   {user.name}
-                </a>
-              */}
-                <form action='/friendships' method='post'>
-                  <input type='hidden' name='authenticity_token' value={CSRFToken()} />
-                  <input name='to_user_id' value={user.id} type='hidden' />
-                  <input type='submit' value={user.name} className='search_user_list_id' />
-                </form>
+                </div>
               </li>
             )
           })
