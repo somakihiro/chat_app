@@ -97,16 +97,26 @@
 }
 
 .search_user_list {
-  padding-top: 25px;
+  padding-top: 1px;
   font-size: 16px;
-}
-
-.search_user_list_id {
   width: 35%;
   margin-left: auto;
   margin-right: auto;
-  height: 40px;
-  padding: 10px 0;
-  margin-bottom: 10px;
-  color: #7B8585
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.search_user_list_result {
+  cursor: pointer;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 5px;
+}
+
+.search_user_list_result_image {
+  border-radius: 50%;
+  width: 40px;
+  margin-right: 10px;
 }
