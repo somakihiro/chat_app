@@ -36,7 +36,7 @@ export default class UserList extends React.Component {
   }
 
   onSubmitHandler(to_user_id) {
-    ChatAppModule.post('/friendships', {to_user_id})
+    Utils.post('/friendships', {to_user_id})
   }
 
   render() {
