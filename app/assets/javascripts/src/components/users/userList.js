@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import React from 'react'
 import User from '../../stores/users'
-import ChatAppModule from '../../lib/utils'
+import Utils from '../../lib/utils'
 
 export default class UserList extends React.Component {
   static get propTypes() {
@@ -36,9 +36,7 @@ export default class UserList extends React.Component {
   }
 
   onSubmitHandler(to_user_id) {
-    _.map(this.state.users, (user) => {
-      ChatAppModule.post('/friendships', {'to_user_id': to_user_id})
-    })
+    ChatAppModule.post('/friendships', {to_user_id})
   }
 
   render() {

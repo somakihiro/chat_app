@@ -2,7 +2,7 @@ import _ from 'lodash'
 import $ from '../vendor/jquery'
 import {CSRFToken} from '../constants/app'
 
-const ChatAppModule = {
+const Utils = {
   post: (path, params) => {
     params['authenticity_token'] = CSRFToken()
     const form = $('<form></form>')
@@ -23,14 +23,14 @@ const ChatAppModule = {
 
   patch: (path, params) => {
     params['_method'] = 'patch'
-    ChatAppModule.post(path, params)
+    Utils.post(path, params)
   },
 
   delete: (path) => {
     const params = {'_method': 'delete'}
-    ChatAppModule.post(path, params)
+    Utils.post(path, params)
   },
 }
 
-window.ChatAppModule = ChatAppModule
-export default ChatAppModule
+window.Utils = Utils
+export default Utils
