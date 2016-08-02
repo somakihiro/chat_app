@@ -2,13 +2,25 @@ import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
 import User from './users'
 import CurrentUserStore from './currentUser'
+import MessagesAction from '../actions/messages'
 
-let openChatID = parseInt(Object.keys(User.getUsers())[0], 10)
+let openChatId = parseInt(Object.keys(User.getUsers())[0], 10)
 
 class MessageStore extends BaseStore {
 
-  getOpenChatUserID() {
-    return openChatID
+  // getDefaultOpenUserId() {
+  //   const defaultOpenUser = User.getUsers()[0]
+  //   if (!defaultOpenUser) return {}
+  //   const openChatID = defaultOpenUser.id
+  // }
+
+  getOpenChatUserId() {
+    const users = User.getUsers()
+    if (Number.isNaN(openChatId) && users.length != 0) {
+      openChatId = users[0].id
+      MessagesAction.loadUserMessages(openChatId)
+    }
+    return openChatId
   }
 
   getChatByUserID(id) {
@@ -31,7 +43,7 @@ const MessagesStore = new MessageStore()
 MessagesStore.dispatchToken = Dispatcher.register(payload => {
   const actions = {
     UPDATE_OPEN_CHAT_ID(payload) {
-      openChatID = payload.action.userID
+      openChatId = payload.action.userID
       // messages[openChatID].lastAccess.currentUser = +new Date()
       MessagesStore.emitChange()
     },

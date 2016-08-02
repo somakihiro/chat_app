@@ -12,7 +12,7 @@ export default class CardRouter extends BaseRouter {
   }
 
   loadUserMessages(ctx, next) {
-    const openChatId = MessagesStore.getOpenChatUserID()
+    const openChatId = MessagesStore.getOpenChatUserId()
     MessagesAction.loadUserMessages(openChatId)
     next()
   }

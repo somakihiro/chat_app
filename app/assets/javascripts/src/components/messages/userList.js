@@ -20,9 +20,15 @@ class UserList extends React.Component {
   }
 
   getStateFromStores() {
+    // const users = User.getUsers()
+    // if (!users) return []
+    // let openChatId = MessagesStore.getOpenChatUserID()
+    // if (Number.isNaN(openChatId)) {
+    //   return openChatId = users[0].id
+    // }
     return {
       users: User.getUsers(),
-      openChatID: MessagesStore.getOpenChatUserID(),
+      openChatId: MessagesStore.getOpenChatUserId(),
     }
     // const allMessages = MessagesStore.getMessage()
 
@@ -72,14 +78,14 @@ class UserList extends React.Component {
   }
 
   render() {
-    const {users, openChatID} = this.state
+    const {users, openChatId} = this.state
 
     const friendUsers = _.map(users, (user) => {
       const itemClasses = classNames({
         'user-list__item': true,
         'clear': true,
         // 'user-list__item--new': isNewMessage,
-        'user-list__item--active': openChatID === user.id,
+        'user-list__item--active': openChatId === user.id,
       })
       return (
         <div key={user.id} onClick={this.loadUserMessages.bind(this, user.id)}>

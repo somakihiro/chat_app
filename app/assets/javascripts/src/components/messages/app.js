@@ -19,7 +19,7 @@ class App extends React.Component {
   }
 
   getStateFromStores() {
-    const openChatID = MessagesStore.getOpenChatUserID()
+    const openChatID = MessagesStore.getOpenChatUserId()
     const currentUser = CurrentUserStore.getCurrentUser()
     if (!currentUser) return {}
     const currentUserMessages = currentUser.messages ? currentUser.messages : []
