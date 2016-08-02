@@ -16,7 +16,7 @@ class MessageStore extends BaseStore {
 
   getOpenChatUserId() {
     const users = User.getUsers()
-    if (Number.isNaN(openChatId) && users.length != 0) {
+    if (Number.isNaN(openChatId) && users.length !== 0) {
       openChatId = users[0].id
       MessagesAction.loadUserMessages(openChatId)
     }
