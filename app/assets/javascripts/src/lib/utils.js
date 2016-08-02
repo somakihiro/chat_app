@@ -33,4 +33,8 @@ const Utils = {
 }
 
 window.Utils = Utils
+<<<<<<< HEAD
 export default Utils
+=======
+export default Utils
+>>>>>>> password_reset
