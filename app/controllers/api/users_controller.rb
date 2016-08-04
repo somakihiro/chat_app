@@ -8,7 +8,7 @@ class Api::UsersController < ApplicationController
 
   def index
     # @users = User.where.not(id: current_user.id)
-    @users = current_user.friends_all
+    @users = current_user.friends_all.as_json(include: :messages)
     render json: @users
   end
 
@@ -23,7 +23,7 @@ class Api::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    render json: @user.as_json(include: :messages)
+    render json: @user.as_json(include: [:messages, :accesses])
   end
 
   # def users_message

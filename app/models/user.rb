@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :messages
+  has_many :accesses
   has_many :from_user_friendships, class_name: 'Friendship', foreign_key: 'from_user_id',
            dependent: :destroy
   has_many :friends_from_user, through: :from_user_friendships, source: 'to_user'

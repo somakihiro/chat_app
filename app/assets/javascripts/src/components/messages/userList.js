@@ -20,12 +20,6 @@ class UserList extends React.Component {
   }
 
   getStateFromStores() {
-    // const users = User.getUsers()
-    // if (!users) return []
-    // let openChatId = MessagesStore.getOpenChatUserID()
-    // if (Number.isNaN(openChatId)) {
-    //   return openChatId = users[0].id
-    // }
     return {
       users: User.getUsers(),
       openChatId: MessagesStore.getOpenChatUserId(),

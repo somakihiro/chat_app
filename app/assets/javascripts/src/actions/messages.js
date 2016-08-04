@@ -29,6 +29,13 @@ export default {
     })
   },
 
+  saveLastAccess(user_id, to_user_id, last_access) {
+    return new Promise((resolve, reject) => {
+      request
+      .post(`${APIEndpoints.}`)
+    })
+  }
+
   saveMessage(body, to_user_id, user_id) {
     return new Promise((resolve, reject) => {
       request

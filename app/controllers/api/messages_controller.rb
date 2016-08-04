@@ -7,7 +7,7 @@ class Api::MessagesController < ApplicationController
   def create
     @message = current_user.messages.build(message_params)
     @message.save
-    render json: { message: @message }
+    render json: {message: @message}
   end
 
   def upload_image

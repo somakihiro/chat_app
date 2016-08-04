@@ -2,7 +2,6 @@ import React from 'react'
 import MessagesStore from '../../stores/messages'
 import MessagesAction from '../../actions/messages'
 import CurrentUserStore from '../../stores/currentUser'
-import _ from 'lodash'
 
 class ReplyBox extends React.Component {
 
@@ -40,7 +39,7 @@ class ReplyBox extends React.Component {
     if (e.keyCode === 13 && this.state.value !== '') {
       MessagesAction.saveMessage(this.state.value, this.state.toUserId, this.state.userId, this.state.image)
       this.setState({
-          value: '',
+        value: '',
       })
     }
   }
