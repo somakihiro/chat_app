@@ -25,17 +25,10 @@ Rails.application.routes.draw do
       end
     end
     resources :users, only: [:index, :show, :create] do
-      # member do
-      #   post :create
-      # end
       collection do
         get :search
-        # get :me
-        # get :all
-        # get :message
       end
     end
-    # resources :friendships, only: [:index, :create]
     resources :current_user, only: [:index] do
       collection do
         put :update

@@ -29,22 +29,6 @@ class UserList extends React.Component {
       openChatId: MessagesStore.getOpenChatUserId(),
       currentUserId,
     }
-    // const allMessages = MessagesStore.getMessage()
-
-    // const messageList = []
-    // _.each(allMessages, (messages) => {
-    //   const messagesLength = messages.length
-    //   messageList.push({
-    //     lastMessage: messages[messagesLength - 1],
-    //     // lastAccess: message.lastAccess,
-    //     user: User.getUser(),
-    //   })
-    // })
-
-    // return {
-    //   openChatID: MessagesStore.getOpenChatUserID(),
-    //   messageList: messageList,
-    // }
   }
 
   componentDidMount() {
@@ -92,7 +76,6 @@ class UserList extends React.Component {
       const messageLength = user.messages.length
       const lastMessage = user.messages[messageLength - 1]
       const hoge =  _.find(CurrentUser.getCurrentUser().accesses, {to_user_id: user.id})
-      // let newMessage = false
       let newMessageIcon
       if (lastMessage) {
         if (!hoge || lastMessage.created_at > hoge.last_access) {
@@ -105,7 +88,6 @@ class UserList extends React.Component {
       const itemClasses = classNames({
         'user-list__item': true,
         'clear': true,
-        // 'user-list__item--new': newMessage,
         'user-list__item--active': openChatId === user.id,
       })
       return (
@@ -159,76 +141,3 @@ class UserList extends React.Component {
 }
 
 export default UserList
-
-  //   this.state.messageList.sort((a, b) => {
-  //     if (a.lastMessage.id > b.lastMessage.id) {
-  //       return -1
-  //     }
-  //     if (a.lastMessage.id < b.lastMessage.id) {
-  //       return 1
-  //     }
-  //     return 0
-  //   })
-
-  //   const messages = this.state.messageList.map((message, index) => {
-  //     // const date = Utils.getNiceDate(message.lastMessage.timestamp)
-
-  //     var statusIcon
-  //     if (message.lastMessage.from !== message.user.id) {
-  //       statusIcon = (
-  //         <i className='fa fa-reply user-list__item__icon' />
-  //       )
-  //     }
-  //     if (message.lastAccess.currentUser < message.lastMessage.timestamp) {
-  //       statusIcon = (
-  //         <i className='fa fa-circle user-list__item__icon' />
-  //       )
-  //     }
-
-  //     var isNewMessage = false
-  //     if (message.lastAccess.currentUser < message.lastMessage.timestamp) {
-  //       isNewMessage = message.lastMessage.from !== UserStore.user.id
-  //     }
-
-  //     const itemClasses = classNames({
-  //       'user-list__item': true,
-  //       'clear': true,
-  //       'user-list__item--new': isNewMessage,
-  //       'user-list__item--active': this.state.openChatID === message.user.id,
-  //     })
-
-  //     return (
-  //       <li
-  //         onClick={ this.changeOpenChat.bind(this, message.user.id) }
-  //         // className={ itemClasses }
-  //         key={ index }
-  //       >
-  //         <div className='user-list__item__picture'>
-  //           <img src={ message.user.image } />
-  //         </div>
-  //         <div className='user-list__item__details'>
-  //           <h4 className='user-list__item__name'>
-  //             { message.user.name }
-  //             { /*  <abbr className='user-list__item__timestamp'>
-  //                 { date }
-  //               </abbr>
-  //             */ }
-  //           </h4>
-  //           <span className='user-list__item__message'>
-  //             {
-  //               // statusIcon
-  //             }
-  //             { message.lastMessage }
-  //           </span>
-  //         </div>
-  //       </li>
-  //     )
-  // //   }, this)
-  //   return (
-  //     <div className='user-list'>
-  //       <ul className='user-list__list'>
-  //         { messages }
-  //        </ul>
-  //     </div>
-  //   )
-  // }

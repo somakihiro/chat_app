@@ -5,9 +5,6 @@ class Api::CurrentUserController < ApplicationController
   end
 
    def update
-    # binding.pry
-    # @last_access = Access.find(params[:id])
-    # @last_access.update(params[:last_access])
     @to_access_user = current_user.accesses.find_by(to_user_id: params[:to_user_id])
     @to_access_user.update(last_access: params[:last_access])
     render json: @to_access_user

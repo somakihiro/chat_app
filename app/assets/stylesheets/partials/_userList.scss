@@ -20,15 +20,9 @@ input[type=submit] {
     border-bottom: 1px solid rgba( 0, 0, 0, 0.1 );
     cursor: pointer;
 
-    // &--icon {
-    //   color: #218cb9;
-    //   margin-right: 5px;
-    // }
-
     &--active {
       background: rgba(0, 0, 0, .05);
       color: #fff;
-      // font-weight: 500;
       position: relative;
       border-top: 1px solid rgba( 0, 0, 0, 0.1 );
       margin-top: -1px;

@@ -7,6 +7,5 @@ class UsersController < ApplicationController
 
   def search
     @users = User.where.not(id: current_user.id)
-    # @users = User.all
   end
 end
