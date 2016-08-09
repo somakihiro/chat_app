@@ -1,3 +1,6 @@
+- if notice
+  .password-reset-notice
+    = notice
 .login_wrapper
   .form_wrapper
     = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|

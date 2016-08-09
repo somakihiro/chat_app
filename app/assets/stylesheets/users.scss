@@ -84,6 +84,35 @@
   margin-top: 30px;
 }
 
+// パスワードリセット
+.password-reset-wrapper {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 60px;
+}
+
+.password-reset-title {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 7px;
+  margin-bottom: 25px;
+}
+
+.password-reset-email {
+  margin-top: 25px;
+}
+
+.password-reset-btn {
+  margin-bottom: 15px !important;
+}
+
+.password-reset-notice {
+  background-color: #e2f9ee;
+  padding: 15px;
+  border-radius: 4px;
+  margin: 10px;
+}
+
 // ユーザー検索ぺージ
 .search {
   text-align: center;
@@ -113,6 +142,10 @@
   text-align: left;
   border-bottom: 1px solid #ccc;
   padding: 10px 5px;
+}
+
+.search_user_list_result:hover {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .search_user_list_result_image {
