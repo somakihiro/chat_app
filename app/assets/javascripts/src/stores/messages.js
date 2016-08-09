@@ -53,6 +53,16 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       MessagesStore.emitChange()
     },
 
+    // SAVE_LAST_ACCESS(payload) {
+    //   const lastAccess = MessageStore.getUserMessages().accesses
+    //   lastAccess.push({
+    //     user_id: payload.action.user_id,
+    //     to_user_id: payload.action.to_user_id,
+    //     last_access: payload.action.last_access,
+    //   })
+    //   MessageStore.emitChange()
+    // },
+
     // sendMessage(payload) {
     //   const messages = MessagesStore.getMessage()
     //   messages.push({

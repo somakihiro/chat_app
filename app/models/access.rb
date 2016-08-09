@@ -1,3 +1,3 @@
 class Access < ActiveRecord::Base
-  belongs_to :accesses
+  belongs_to :user
 end

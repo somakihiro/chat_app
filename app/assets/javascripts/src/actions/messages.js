@@ -29,12 +29,43 @@ export default {
     })
   },
 
-  saveLastAccess(user_id, to_user_id, last_access) {
+  createLastAccess(user_id, to_user_id, last_access) {
     return new Promise((resolve, reject) => {
       request
-      .post(`${APIEndpoints.}`)
+      .post(`${APIEndpoints.USERS}`)
+      .set('X-CSRF-Token', CSRFToken())
+      .send({
+        user_id,
+        to_user_id,
+        last_access,
+      })
+      .end((error, res) => {
+        if (!error && res.status === 200) {
+          const json = JSON.parse(res.text)
+          resolve(json)
+        } else {
+          reject(res)
+        }
+      })
     })
-  }
+  },
+
+  updateLastAccess(last_access, to_user_id) {
+    return new Promise((resolve, reject) => {
+      request
+      .put(`${APIEndpoints.CURRENT_USER}`)
+      .set('X-CSRF-Token', CSRFToken())
+      .send({last_access, to_user_id})
+      .end((error, res) => {
+        if (!error && res.status === 200) {
+          const json = JSON.parse(res.text)
+          resolve(json)
+        } else {
+          reject(res)
+        }
+      })
+    })
+  },
 
   saveMessage(body, to_user_id, user_id) {
     return new Promise((resolve, reject) => {

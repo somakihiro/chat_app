@@ -6,6 +6,7 @@ import User from '../../stores/users'
 import MessagesAction from '../../actions/messages'
 import CurrentUserAction from '../../actions/currentUser'
 import {CSRFToken} from '../../constants/app'
+import CurrentUser from '../../stores/currentUser'
 
 class UserList extends React.Component {
 
@@ -20,9 +21,13 @@ class UserList extends React.Component {
   }
 
   getStateFromStores() {
+    const currentUser = CurrentUser.getCurrentUser()
+    if (!currentUser) return {}
+    const currentUserId = currentUser.id
     return {
       users: User.getUsers(),
       openChatId: MessagesStore.getOpenChatUserId(),
+      currentUserId,
     }
     // const allMessages = MessagesStore.getMessage()
 
@@ -65,6 +70,15 @@ class UserList extends React.Component {
     MessagesAction.loadUserMessages(id)
   }
 
+  saveLastAccess(userId, toUserId, lastAccess) {
+    const toUser = _.find(CurrentUser.getCurrentUser().accesses, {to_user_id: toUserId})
+    if (toUser) {
+      MessagesAction.updateLastAccess(lastAccess, toUserId)
+    } else {
+      MessagesAction.createLastAccess(userId, toUserId, lastAccess)
+    }
+  }
+
   deleteChatConfirm(e) {
     if (!confirm('本当に削除しますか？(チャットの履歴は残ります。)')) {
       e.preventDefault()
@@ -72,48 +86,64 @@ class UserList extends React.Component {
   }
 
   render() {
-    const {users, openChatId} = this.state
+    const {users, openChatId, currentUserId} = this.state
 
     const friendUsers = _.map(users, (user) => {
+      const messageLength = user.messages.length
+      const lastMessage = user.messages[messageLength - 1]
+      const hoge =  _.find(CurrentUser.getCurrentUser().accesses, {to_user_id: user.id})
+      // let newMessage = false
+      let newMessageIcon
+      if (lastMessage) {
+        if (!hoge || lastMessage.created_at > hoge.last_access) {
+          newMessageIcon = (
+            <i className='fa fa-circle new-message-icon' />
+          )
+        }
+      }
+
       const itemClasses = classNames({
         'user-list__item': true,
         'clear': true,
-        // 'user-list__item--new': isNewMessage,
+        // 'user-list__item--new': newMessage,
         'user-list__item--active': openChatId === user.id,
       })
       return (
         <div key={user.id} onClick={this.loadUserMessages.bind(this, user.id)}>
-          <li
-            onClick={this.changeOpenChat.bind(this, user.id)}
-            className={itemClasses}
-          >
-            <form action={`/friendships/${user.id}`} method='post'>
-              <input
-                type='hidden'
-                name='authenticity_token'
-                value={CSRFToken()}
-              />
-              <input
-                type='hidden'
-                name='_method'
-                value='delete'
-              />
-              <input
-                type='submit'
-                value='&#xf057;'
-                className='remove-chat-btn'
-                onClick={this.deleteChatConfirm.bind(this)}
-              />
-            </form>
-            <div className='user-list__item__picture'>
-              <img src={user.image ? '/user_images/' + user.image : 'assets/default_image.jpg'} />
-            </div>
-            <div className='user-list__item__details'>
-              <div className='user-list__item__name'>
-                <a href={`users/${user.id}`} className='user-list-name'>{user.name}</a>
+          <div onClick={this.saveLastAccess.bind(this, currentUserId, user.id, new Date())}>
+            <li
+              onClick={this.changeOpenChat.bind(this, user.id)}
+              className={itemClasses}
+            >
+              <form action={`/friendships/${user.id}`} method='post'>
+                <input
+                  type='hidden'
+                  name='authenticity_token'
+                  value={CSRFToken()}
+                />
+                <input
+                  type='hidden'
+                  name='_method'
+                  value='delete'
+                />
+                <input
+                  type='submit'
+                  value='&#xf057;'
+                  className='remove-chat-btn'
+                  onClick={this.deleteChatConfirm.bind(this)}
+                />
+              </form>
+              <div className='user-list__item__picture'>
+                <img src={user.image ? '/user_images/' + user.image : 'assets/default_image.jpg'} />
               </div>
-            </div>
-          </li>
+              <div className='user-list__item__details'>
+                <div className='user-list__item__name'>
+                  {newMessageIcon ? newMessageIcon : null}
+                  <a href={`users/${user.id}`} className='user-list-name'>{user.name}</a>
+                </div>
+              </div>
+            </li>
+          </div>
         </div>
       )
     }, this)

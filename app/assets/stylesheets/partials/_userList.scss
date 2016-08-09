@@ -20,15 +20,10 @@ input[type=submit] {
     border-bottom: 1px solid rgba( 0, 0, 0, 0.1 );
     cursor: pointer;
 
-    &--new {
-      background: #EEF1F6;
-      font-weight: 500;
-
-      .user-list__item__icon {
-        color: #1D9BCE;
-        margin-right: 3px;
-      }
-    }
+    // &--icon {
+    //   color: #218cb9;
+    //   margin-right: 5px;
+    // }
 
     &--active {
       background: rgba(0, 0, 0, .05);
@@ -95,4 +90,9 @@ input[type=submit] {
   margin-top: -10px;
   background: #fff;
   border: 0;
+}
+
+.new-message-icon {
+  color: #218cb9;
+  margin-right: 5px;
 }
