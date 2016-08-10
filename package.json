@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "build": "browserify app/assets/javascripts/src/boot.js -t babelify/browserify-incremental --extension=\".js.jsx\" -o public/assets/javascripts/boot.js",
+    "build": "browserify app/assets/javascripts/src/boot.js -t babelify --extension=\".js.jsx\" -o public/assets/javascripts/boot.js",
     "watch": "npm run lint:fix && watchify app/assets/javascripts/src/boot.js  -t babelify --extension=\".js.jsx\" -d -o public/assets/javascripts/boot.js -v",
     "watch:hot": "npm run lint && watchify app/assets/javascripts/src/boot.js -t babelify --extension=\".js.jsx\" -d -p livereactload -o public/assets/javascripts/boot.js -v",
     "lint": "eslint ./app/assets/javascripts/src",
