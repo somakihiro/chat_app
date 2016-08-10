@@ -10,7 +10,6 @@
 /app/assets/images
 /public/message_images
 /public/user_images
-/public/assets/javascripts/boot.js
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
