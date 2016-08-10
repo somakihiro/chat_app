@@ -1,6 +1,6 @@
 import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
-import User from './users'
+import UserStore from './users'
 import CurrentUserStore from './currentUser'
 import MessagesAction from '../actions/messages'
 
@@ -9,7 +9,7 @@ let openChatId = parseInt(Object.keys(User.getUsers())[0], 10)
 class MessageStore extends BaseStore {
 
   getOpenChatUserId() {
-    const users = User.getUsers()
+    const users = UserStore.getUsers()
     if (Number.isNaN(openChatId) && users.length !== 0) {
       openChatId = users[0].id
       MessagesAction.loadUserMessages(openChatId)
@@ -18,7 +18,7 @@ class MessageStore extends BaseStore {
   }
 
   getChatByUserID(id) {
-    return User.getUsers()[id]
+    return UserStore.getUsers()[id]
   }
 
   getUserMessages() {

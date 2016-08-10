@@ -1,6 +1,5 @@
 import React from 'react'
 import _ from 'lodash'
-import User from '../../stores/users'
 import MessagesStore from '../../stores/messages'
 import CurrentUserStore from '../../stores/currentUser'
 import UserList from './userList'
@@ -38,13 +37,11 @@ class App extends React.Component {
 
   componentDidMount() {
     MessagesStore.onChange(this.onChangeHandler)
-    User.onChange(this.onChangeHandler)
     CurrentUserStore.onChange(this.onChangeHandler)
   }
 
   componentWillUnmount() {
     MessagesStore.offChange(this.onChangeHandler)
-    User.offChange(this.onChangeHandler)
     CurrentUserStore.offChange(this.onChangeHandler)
   }
 

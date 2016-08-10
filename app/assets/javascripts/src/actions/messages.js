@@ -29,16 +29,12 @@ export default {
     })
   },
 
-  createLastAccess(user_id, to_user_id, last_access) {
+  createLastAccess(to_user_id, last_access) {
     return new Promise((resolve, reject) => {
       request
       .post(`${APIEndpoints.USERS}`)
       .set('X-CSRF-Token', CSRFToken())
-      .send({
-        user_id,
-        to_user_id,
-        last_access,
-      })
+      .send({to_user_id, last_access})
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)

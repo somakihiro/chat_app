@@ -19,8 +19,7 @@ class Api::UsersController < ApplicationController
   end
 
   def create
-      @user_access = current_user.accesses.build(to_user_id: params[:to_user_id], last_access: params[:last_access])
-      @user_access.save
+      @user_access = current_user.accesses.create(to_user_id: params[:to_user_id], last_access: params[:last_access])
       render json: @user_access
   end
 end

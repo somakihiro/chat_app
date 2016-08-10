@@ -36,8 +36,9 @@ class ReplyBox extends React.Component {
   }
 
   handleKeyDown(e) {
+    const {value, toUserId, userId} = this.state
     if (e.keyCode === 13 && this.state.value !== '') {
-      MessagesAction.saveMessage(this.state.value, this.state.toUserId, this.state.userId, this.state.image)
+      MessagesAction.saveMessage(value, toUserId, userId)
       this.setState({
         value: '',
       })

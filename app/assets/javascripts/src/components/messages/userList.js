@@ -2,11 +2,11 @@ import React from 'react'
 import _ from 'lodash'
 import classNames from 'classnames'
 import MessagesStore from '../../stores/messages'
-import User from '../../stores/users'
+import UserStore from '../../stores/users'
 import MessagesAction from '../../actions/messages'
 import CurrentUserAction from '../../actions/currentUser'
 import {CSRFToken} from '../../constants/app'
-import CurrentUser from '../../stores/currentUser'
+import CurrentUserStore from '../../stores/currentUser'
 
 class UserList extends React.Component {
 
@@ -21,11 +21,11 @@ class UserList extends React.Component {
   }
 
   getStateFromStores() {
-    const currentUser = CurrentUser.getCurrentUser()
+    const currentUser = CurrentUserStore.getCurrentUser()
     if (!currentUser) return {}
     const currentUserId = currentUser.id
     return {
-      users: User.getUsers(),
+      users: UserStore.getUsers(),
       openChatId: MessagesStore.getOpenChatUserId(),
       currentUserId,
     }
@@ -33,12 +33,12 @@ class UserList extends React.Component {
 
   componentDidMount() {
     MessagesStore.onChange(this.onChangeHandler)
-    User.onChange(this.onChangeHandler)
+    UserStore.onChange(this.onChangeHandler)
   }
 
   componentWillUnmount() {
     MessagesStore.offChange(this.onChangeHandler)
-    User.offChange(this.onChangeHandler)
+    UserStore.offChange(this.onChangeHandler)
   }
 
   onStoreChange() {
@@ -54,12 +54,17 @@ class UserList extends React.Component {
     MessagesAction.loadUserMessages(id)
   }
 
-  saveLastAccess(userId, toUserId, lastAccess) {
-    const toUser = _.find(CurrentUser.getCurrentUser().accesses, {to_user_id: toUserId})
+  getLastAccess(toUserId) {
+    _.find(CurrentUserStore.getCurrentUser().accesses, {to_user_id: toUserId})
+  }
+
+  saveLastAccess(toUserId) {
+    // const toUser = _.find(CurrentUserStore.getCurrentUser().accesses, {to_user_id: toUserId})
+    const lastAccess = this.getLastAccess.bind(this, toUserId)
     if (toUser) {
-      MessagesAction.updateLastAccess(lastAccess, toUserId)
+      MessagesAction.updateLastAccess(toUserId, new Date())
     } else {
-      MessagesAction.createLastAccess(userId, toUserId, lastAccess)
+      MessagesAction.createLastAccess(toUserId, new Date())
     }
   }
 
@@ -70,15 +75,16 @@ class UserList extends React.Component {
   }
 
   render() {
-    const {users, openChatId, currentUserId} = this.state
+    const {users, openChatId} = this.state
 
     const friendUsers = _.map(users, (user) => {
       const messageLength = user.messages.length
       const lastMessage = user.messages[messageLength - 1]
-      const hoge =  _.find(CurrentUser.getCurrentUser().accesses, {to_user_id: user.id})
+      // const lastAccess = _.find(CurrentUserStore.getCurrentUser().accesses, {to_user_id: user.id})
+      const lastAccess = this.getLastAccess.bind(this, user.id)
       let newMessageIcon
       if (lastMessage) {
-        if (!hoge || lastMessage.created_at > hoge.last_access) {
+        if (!lastAccess || lastMessage.created_at > lastAccess.last_access) {
           newMessageIcon = (
             <i className='fa fa-circle new-message-icon' />
           )
@@ -91,10 +97,13 @@ class UserList extends React.Component {
         'user-list__item--active': openChatId === user.id,
       })
       return (
-        <div key={user.id} onClick={this.loadUserMessages.bind(this, user.id)}>
-          <div onClick={this.saveLastAccess.bind(this, currentUserId, user.id, new Date())}>
             <li
-              onClick={this.changeOpenChat.bind(this, user.id)}
+              key={user.id}
+              onClick={
+                        this.loadUserMessages.bind(this, user.id),
+                        this.changeOpenChat.bind(this, user.id),
+                        this.saveLastAccess.bind(this, user.id)
+                      }
               className={itemClasses}
             >
               <form action={`/friendships/${user.id}`} method='post'>
@@ -125,8 +134,6 @@ class UserList extends React.Component {
                 </div>
               </div>
             </li>
-          </div>
-        </div>
       )
     }, this)
 
