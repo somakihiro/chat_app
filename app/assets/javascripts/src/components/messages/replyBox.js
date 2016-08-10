@@ -1,7 +1,6 @@
 import React from 'react'
 import MessagesStore from '../../stores/messages'
 import MessagesAction from '../../actions/messages'
-import CurrentUserStore from '../../stores/currentUser'
 
 class ReplyBox extends React.Component {
 
@@ -19,7 +18,6 @@ class ReplyBox extends React.Component {
     return {
       value: '',
       toUserId: MessagesStore.getOpenChatUserId(),
-      userId: CurrentUserStore.getCurrentUser().id,
     }
   }
 
@@ -55,7 +53,7 @@ class ReplyBox extends React.Component {
     const inputDOM = e.target
     if (!inputDOM.files.length) return
     const file = inputDOM.files[0]
-    MessagesAction.saveImageChat(file, this.state.toUserId, this.state.userId)
+    MessagesAction.saveImageChat(file, this.state.toUserId)
   }
 
   render() {

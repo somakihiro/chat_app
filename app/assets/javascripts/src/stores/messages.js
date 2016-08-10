@@ -60,10 +60,11 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
 
     SAVE_IMAGE_CHAT(payload) {
       const messages = CurrentUserStore.getCurrentUser().messages
+      const currentUserId = CurrentUserStore.getCurrentUser().id
       messages.push({
         image: payload.action.image,
         to_user_id: payload.action.to_user_id,
-        user_id: payload.action.user_id,
+        user_id: currentUserId,
       })
       MessagesStore.emitChange()
     },

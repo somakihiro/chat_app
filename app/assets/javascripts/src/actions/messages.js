@@ -89,7 +89,7 @@ export default {
     })
   },
 
-  saveImageChat(file, to_user_id, user_id) {
+  saveImageChat(file, to_user_id) {
     return new Promise((resolve, reject) => {
       request
       .post(`${APIEndpoints.MESSAGES}/upload_image`)
@@ -103,7 +103,6 @@ export default {
             type: ActionTypes.SAVE_IMAGE_CHAT,
             image: file.name,
             to_user_id,
-            user_id,
             json,
           })
           resolve(json)
