@@ -1,14 +1,11 @@
 class Api::UsersController < ApplicationController
   def search
     @users = User.where.not(id: current_user.id)
-    # @users = User.all
-    # render json: @users.as_json(include: :messages)
     render json: @users
   end
 
   def index
-    # @users = User.where.not(id: current_user.id)
-    @users = current_user.friends_all
+    @users = current_user.friends_all.as_json(include: [:messages, :accesses])
     render json: @users
   end
 
@@ -16,18 +13,13 @@ class Api::UsersController < ApplicationController
     render json: current_user.as_json(include: :messages)
   end
 
-  # def all
-  #   @users = User.all
-  #   render json: @users.as_json(include: :messages)
-  # end
-
   def show
     @user = User.find(params[:id])
-    render json: @user.as_json(include: :messages)
+    render json: @user.as_json(include: [:messages, :accesses])
   end
 
-  # def users_message
-  #   @users = current_user.friends_all_plus
-  #   render json: @users.as_json(include: :messages)
-  # end
+  def create
+      @user_access = current_user.accesses.create(to_user_id: params[:to_user_id], last_access: params[:last_access])
+      render json: @user_access
+  end
 end

@@ -1,6 +1,5 @@
 import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
-// import UsersAction from '../actions/users'
 
 class UserStore extends BaseStore {
   getUsers() {

@@ -29,7 +29,41 @@ export default {
     })
   },
 
-  saveMessage(body, to_user_id, user_id) {
+  createLastAccess(to_user_id, last_access) {
+    return new Promise((resolve, reject) => {
+      request
+      .post(`${APIEndpoints.USERS}`)
+      .set('X-CSRF-Token', CSRFToken())
+      .send({to_user_id, last_access})
+      .end((error, res) => {
+        if (!error && res.status === 200) {
+          const json = JSON.parse(res.text)
+          resolve(json)
+        } else {
+          reject(res)
+        }
+      })
+    })
+  },
+
+  updateLastAccess(to_user_id, last_access) {
+    return new Promise((resolve, reject) => {
+      request
+      .put(`${APIEndpoints.CURRENT_USER}`)
+      .set('X-CSRF-Token', CSRFToken())
+      .send({to_user_id, last_access})
+      .end((error, res) => {
+        if (!error && res.status === 200) {
+          const json = JSON.parse(res.text)
+          resolve(json)
+        } else {
+          reject(res)
+        }
+      })
+    })
+  },
+
+  saveMessage(body, to_user_id) {
     return new Promise((resolve, reject) => {
       request
       .post(`${APIEndpoints.MESSAGES}`)
@@ -37,7 +71,6 @@ export default {
       .send({
         body,
         to_user_id,
-        user_id,
       })
       .end((error, res) => {
         if (!error && res.status === 200) {
@@ -46,7 +79,6 @@ export default {
             type: ActionTypes.SAVE_MESSAGE,
             body,
             to_user_id,
-            user_id,
             json,
           })
           resolve(json)
@@ -57,7 +89,7 @@ export default {
     })
   },
 
-  saveImageChat(file, to_user_id, user_id) {
+  saveImageChat(file, to_user_id) {
     return new Promise((resolve, reject) => {
       request
       .post(`${APIEndpoints.MESSAGES}/upload_image`)
@@ -71,7 +103,6 @@ export default {
             type: ActionTypes.SAVE_IMAGE_CHAT,
             image: file.name,
             to_user_id,
-            user_id,
             json,
           })
           resolve(json)

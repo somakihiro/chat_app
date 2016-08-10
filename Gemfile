@@ -18,6 +18,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
 gem 'bootstrap-sass'
 gem 'pry-rails'
+gem 'font-awesome-rails'
 
 group :development, :test do
   # binding.pryにより、ブレイクポイントを設置

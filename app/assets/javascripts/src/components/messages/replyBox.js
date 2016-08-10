@@ -1,7 +1,6 @@
 import React from 'react'
 import MessagesStore from '../../stores/messages'
 import MessagesAction from '../../actions/messages'
-import CurrentUserStore from '../../stores/currentUser'
 
 class ReplyBox extends React.Component {
 
@@ -18,8 +17,7 @@ class ReplyBox extends React.Component {
   getStateFromStores() {
     return {
       value: '',
-      toUserId: MessagesStore.getOpenChatUserID(),
-      userId: CurrentUserStore.getCurrentUser().id,
+      toUserId: MessagesStore.getOpenChatUserId(),
     }
   }
 
@@ -36,8 +34,9 @@ class ReplyBox extends React.Component {
   }
 
   handleKeyDown(e) {
-    if (e.keyCode === 13) {
-      MessagesAction.saveMessage(this.state.value, this.state.toUserId, this.state.userId, this.state.image)
+    const {value, toUserId} = this.state
+    if (e.keyCode === 13 && value !== '') {
+      MessagesAction.saveMessage(value, toUserId)
       this.setState({
         value: '',
       })
@@ -54,7 +53,7 @@ class ReplyBox extends React.Component {
     const inputDOM = e.target
     if (!inputDOM.files.length) return
     const file = inputDOM.files[0]
-    MessagesAction.saveImageChat(file, this.state.toUserId, this.state.userId)
+    MessagesAction.saveImageChat(file, this.state.toUserId)
   }
 
   render() {

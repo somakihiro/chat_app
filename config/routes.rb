@@ -24,15 +24,15 @@ Rails.application.routes.draw do
         post :upload_image
       end
     end
-    resources :users, only: [:index, :show] do
+    resources :users, only: [:index, :show, :create] do
       collection do
         get :search
-        # get :me
-        # get :all
-        # get :message
       end
     end
-    # resources :friendships, only: [:index, :create]
-    resources :current_user, only: [:index]
+    resources :current_user, only: [:index] do
+      collection do
+        put :update
+      end
+    end
   end
 end

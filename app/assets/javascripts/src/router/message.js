@@ -6,13 +6,13 @@ import UsersAction from '../actions/users'
 import MessagesStore from '../stores/messages'
 import CurrentUserAction from '../actions/currentUser'
 
-export default class CardRouter extends BaseRouter {
+export default class MessageRouter extends BaseRouter {
   register() {
     this.route('/', this.decorateApp, this.loadUserMessages, this.loadUsers, this.loadCurrentUser)
   }
 
   loadUserMessages(ctx, next) {
-    const openChatId = MessagesStore.getOpenChatUserID()
+    const openChatId = MessagesStore.getOpenChatUserId()
     MessagesAction.loadUserMessages(openChatId)
     next()
   }

@@ -5,7 +5,7 @@ import UsersAction from '../actions/users'
 
 export default class UserRouter extends BaseRouter {
   register() {
-    this.route('/users/search', this.decorateSearch, this.loadSearchUsers, this.loadCurrentUser)
+    this.route('/users/search', this.decorateSearch, this.loadSearchUsers)
   }
 
   loadSearchUsers(ctx, next) {
@@ -13,10 +13,10 @@ export default class UserRouter extends BaseRouter {
     next()
   }
 
-  loadCurrentUser(ctx, next) {
-    UsersAction.loadCurrentUser()
-    next()
-  }
+  // loadCurrentUser(ctx, next) {
+  //   UsersAction.loadCurrentUser()
+  //   next()
+  // }
 
   decorateSearch(ctx, next) {
     (new ReactDecorator()).decorate('react-main', Search)
