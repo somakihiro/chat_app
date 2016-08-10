@@ -6,7 +6,7 @@ import UsersAction from '../actions/users'
 import MessagesStore from '../stores/messages'
 import CurrentUserAction from '../actions/currentUser'
 
-export default class CardRouter extends BaseRouter {
+export default class MessageRouter extends BaseRouter {
   register() {
     this.route('/', this.decorateApp, this.loadUserMessages, this.loadUsers, this.loadCurrentUser)
   }
