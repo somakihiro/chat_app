@@ -11,6 +11,8 @@
  * file per style scope.
  *= require_tree .
  *= require_self
+ *= require font-awesome
  */
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
+@import 'fonts/fontawesome.scss';
