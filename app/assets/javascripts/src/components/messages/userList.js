@@ -59,8 +59,8 @@ class UserList extends React.Component {
   }
 
   saveLastAccess(toUserId) {
-    const lastAccess = this.getLastAccess.bind(this, toUserId)
-    if (toUser) {
+    const userChatAccess = this.getLastAccess.bind(this, toUserId)
+    if (userChatAccess) {
       MessagesAction.updateLastAccess(toUserId, new Date())
     } else {
       MessagesAction.createLastAccess(toUserId, new Date())
@@ -79,10 +79,10 @@ class UserList extends React.Component {
     const friendUsers = _.map(users, (user) => {
       const messageLength = user.messages.length
       const lastMessage = user.messages[messageLength - 1]
-      const lastAccess = this.getLastAccess.bind(this, user.id)
+      const userChatAccess = this.getLastAccess.bind(this, user.id)
       let newMessageIcon
-      if (lastMessage) {
-        if (!lastAccess || lastMessage.created_at > lastAccess.last_access) {
+      if (userChatAccess) {
+        if (!userChatAccess || lastMessage.created_at > userChatAccess.last_access) {
           newMessageIcon = (
             <i className='fa fa-circle new-message-icon' />
           )
