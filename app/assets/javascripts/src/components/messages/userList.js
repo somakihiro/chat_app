@@ -59,7 +59,6 @@ class UserList extends React.Component {
   }
 
   saveLastAccess(toUserId) {
-    // const toUser = _.find(CurrentUserStore.getCurrentUser().accesses, {to_user_id: toUserId})
     const lastAccess = this.getLastAccess.bind(this, toUserId)
     if (toUser) {
       MessagesAction.updateLastAccess(toUserId, new Date())
@@ -80,7 +79,6 @@ class UserList extends React.Component {
     const friendUsers = _.map(users, (user) => {
       const messageLength = user.messages.length
       const lastMessage = user.messages[messageLength - 1]
-      // const lastAccess = _.find(CurrentUserStore.getCurrentUser().accesses, {to_user_id: user.id})
       const lastAccess = this.getLastAccess.bind(this, user.id)
       let newMessageIcon
       if (lastMessage) {
