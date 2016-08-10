@@ -19,6 +19,7 @@ gem 'devise'
 gem 'bootstrap-sass'
 gem 'pry-rails'
 gem 'font-awesome-rails'
+gem 'pg', group: :production
 
 group :development, :test do
   # binding.pryにより、ブレイクポイントを設置
