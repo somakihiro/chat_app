@@ -36,6 +36,7 @@
     "browserify-incremental": "^3.1.1",
     "change-case": "2.3.1",
     "chart.js": "1.0.2",
+    "classnames": "^2.2.5",
     "escodegen": "^1.8.0",
     "eventemitter2": "^0.4.14",
     "flux": "^2.0.0",
