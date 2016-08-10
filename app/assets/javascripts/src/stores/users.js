@@ -16,10 +16,10 @@ const User = new UserStore()
 
 User.dispatchToken = Dispatcher.register(payload => {
   const actions = {
-    LOAD_USERS(payload) {
-      User.setUsers(payload.action.json)
-      User.emitChange()
-    },
+    // LOAD_USERS(payload) {
+    //   User.setUsers(payload.action.json)
+    //   User.emitChange()
+    // },
 
     LOAD_SEARCH_USERS(payload) {
       User.setUsers(payload.action.json)

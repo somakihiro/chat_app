@@ -45,26 +45,20 @@ class UserList extends React.Component {
     this.setState(this.getStateFromStores())
   }
 
-  changeOpenChat(id) {
-    MessagesAction.changeOpenChat(id)
-  }
-
-  loadUserMessages(id) {
+  changeOpenChat(userId) {
+    MessagesAction.changeOpenChat(userId)
     CurrentUserAction.loadCurrentUser()
-    MessagesAction.loadUserMessages(id)
+    MessagesAction.loadUserMessages(userId)
+    const userChatAccess = this.getLastAccess.bind(this, userId)
+    if (userChatAccess) {
+      MessagesAction.updateLastAccess(userId, new Date())
+    } else {
+      MessagesAction.createLastAccess(userId, new Date())
+    }
   }
 
   getLastAccess(toUserId) {
     _.find(CurrentUserStore.getCurrentUser().accesses, {to_user_id: toUserId})
-  }
-
-  saveLastAccess(toUserId) {
-    const userChatAccess = this.getLastAccess.bind(this, toUserId)
-    if (userChatAccess) {
-      MessagesAction.updateLastAccess(toUserId, new Date())
-    } else {
-      MessagesAction.createLastAccess(toUserId, new Date())
-    }
   }
 
   deleteChatConfirm(e) {
@@ -97,11 +91,7 @@ class UserList extends React.Component {
       return (
             <li
               key={user.id}
-              onClick={
-                        this.loadUserMessages.bind(this, user.id),
-                        this.changeOpenChat.bind(this, user.id),
-                        this.saveLastAccess.bind(this, user.id)
-                      }
+              onClick={this.changeOpenChat.bind(this, user.id)}
               className={itemClasses}
             >
               <form action={`/friendships/${user.id}`} method='post'>

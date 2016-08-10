@@ -22,24 +22,24 @@ export default {
     })
   },
 
-  loadCurrentUser() {
-    return new Promise((resolve, reject) => {
-      request
-      .get(`${APIEndpoints.USERS}/me`)
-      .end((error, res) => {
-        if (!error && res.status === 200) {
-          const json = JSON.parse(res.text)
-          Dispatcher.handleServerAction({
-            tyep: ActionTypes.LOAD_CURRENT_USER,
-            json: json,
-          })
-          resolve(json)
-        } else {
-          reject(res)
-        }
-      })
-    })
-  },
+  // loadCurrentUser() {
+  //   return new Promise((resolve, reject) => {
+  //     request
+  //     .get(`${APIEndpoints.USERS}/me`)
+  //     .end((error, res) => {
+  //       if (!error && res.status === 200) {
+  //         const json = JSON.parse(res.text)
+  //         Dispatcher.handleServerAction({
+  //           tyep: ActionTypes.LOAD_CURRENT_USER,
+  //           json: json,
+  //         })
+  //         resolve(json)
+  //       } else {
+  //         reject(res)
+  //       }
+  //     })
+  //   })
+  // },
 
   loadSearchUsers() {
     return new Promise((resolve, reject) => {

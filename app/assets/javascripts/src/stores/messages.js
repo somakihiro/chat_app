@@ -4,7 +4,7 @@ import UserStore from './users'
 import CurrentUserStore from './currentUser'
 import MessagesAction from '../actions/messages'
 
-let openChatId = parseInt(Object.keys(User.getUsers())[0], 10)
+let openChatId = parseInt(Object.keys(UserStore.getUsers())[0], 10)
 
 class MessageStore extends BaseStore {
 
