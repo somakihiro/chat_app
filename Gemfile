@@ -20,6 +20,7 @@ gem 'bootstrap-sass'
 gem 'pry-rails'
 gem 'font-awesome-rails'
 gem 'pg', group: :production
+gem 'cloudinary'
 
 group :development, :test do
   # binding.pryにより、ブレイクポイントを設置
