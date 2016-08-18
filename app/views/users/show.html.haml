@@ -3,7 +3,7 @@
     - if @user.image?
       = image_tag "/user_images/#{@user.image}", class: 'user_profile_image_id'
     - else
-      = image_tag "default_image.jpg", class: 'user_profile_image_id'
+      = image_tag "/user_images/default_image.jpg", class: 'user_profile_image_id'
   .user_profile_name
     = @user.name
   .user_profile_email
