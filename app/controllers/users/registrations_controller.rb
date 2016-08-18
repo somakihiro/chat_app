@@ -17,17 +17,28 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
+  def after_update_path_for(resource)
+    current_user
+  end
+
   # PUT /resource
   def update
     current_user.set_image(params[:user][:image])
     current_user.save
-    super
+    result = current_user.update_with_password(user_params)
+    respond_with resource, location: after_update_path_for(resource)
   end
 
   # DELETE /resource
   # def destroy
   #   super
   # end
+
+  private
+
+    def user_params
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :current_password)
+    end
 
   # GET /resource/cancel
   # Forces the session data which is usually expired after sign
@@ -38,11 +49,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  protected
-
-    def after_update_path_for(resource)
-      current_user
-    end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_up_params
