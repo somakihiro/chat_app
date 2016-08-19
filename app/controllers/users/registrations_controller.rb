@@ -25,7 +25,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def update
     current_user.set_image(params[:user][:image])
     current_user.save
-    result = current_user.update_with_password(user_params)
+    current_user.update_with_password(user_params)
     respond_with resource, location: after_update_path_for(resource)
   end
 
