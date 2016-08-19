@@ -49,7 +49,7 @@ class UserList extends React.Component {
     MessagesAction.changeOpenChat(userId)
     CurrentUserAction.loadCurrentUser()
     MessagesAction.loadUserMessages(userId)
-    const userChatAccess = this.getLastAccess.bind(this, userId)
+    const userChatAccess = this.getLastAccess(userId)
     if (userChatAccess) {
       MessagesAction.updateLastAccess(userId, new Date())
     } else {
