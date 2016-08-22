@@ -17,10 +17,6 @@ class MessageStore extends BaseStore {
     return openChatId
   }
 
-  getChatByUserID(id) {
-    return UserStore.getUsers()[id]
-  }
-
   getUserMessages() {
     if (!this.get('userMessages')) this.setUserMessages({})
     return this.get('userMessages')
@@ -36,12 +32,8 @@ const MessagesStore = new MessageStore()
 
 MessagesStore.dispatchToken = Dispatcher.register(payload => {
   const actions = {
-    UPDATE_OPEN_CHAT_ID(payload) {
-      openChatId = payload.action.userID
-      MessagesStore.emitChange()
-    },
-
     LOAD_USER_MESSAGES(payload) {
+      openChatId = payload.action.id
       MessagesStore.setUserMessages(payload.action.json)
       MessagesStore.emitChange()
     },

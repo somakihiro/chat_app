@@ -3,13 +3,6 @@ import Dispatcher from '../dispatcher'
 import {ActionTypes, APIEndpoints, CSRFToken} from '../constants/app'
 
 export default {
-  changeOpenChat(newUserID) {
-    Dispatcher.handleViewAction({
-      type: ActionTypes.UPDATE_OPEN_CHAT_ID,
-      userID: newUserID,
-    })
-  },
-
   loadUserMessages(id) {
     return new Promise((resolve, reject) => {
       request
@@ -19,7 +12,8 @@ export default {
           const json = JSON.parse(res.text)
           Dispatcher.handleServerAction({
             type: ActionTypes.LOAD_USER_MESSAGES,
-            json: json,
+            id,
+            json,
           })
           resolve(json)
         } else {
