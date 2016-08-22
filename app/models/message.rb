@@ -5,7 +5,8 @@ class Message < ActiveRecord::Base
 
   def set_image(file)
     return if file.nil?
-    file_name = file.original_filename
+    file_name = Time.zone.now.to_i.to_s + file.original_filename
+    binding.pry
     File.open("public/message_images/#{file_name}", "wb") {|f|f.write(file.read)}
     self.image = file_name
   end
