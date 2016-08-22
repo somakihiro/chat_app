@@ -22,12 +22,12 @@ class MessagesBox extends React.Component {
         'clear': true,
       })
       return (
-          <li key={message.id} className={messageClasses}>
-            <div className='message-box__item__contents'>
-              {message.image ? <img className='image-message' src={`/message_images/${message.image}`} /> : message.body}
-            </div>
-          </li>
-        )
+        <li key={message.id} className={messageClasses}>
+          <div className='message-box__item__contents'>
+            {message.image ? <img className='image-message' src={`/message_images/${message.image}`} /> : message.body}
+          </div>
+        </li>
+      )
     })
 
     return (
