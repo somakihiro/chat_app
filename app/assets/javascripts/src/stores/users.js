@@ -1,5 +1,6 @@
 import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
+import {ActionTypes} from '../constants/app'
 
 class UserStore extends BaseStore {
   getUsers() {
@@ -15,19 +16,21 @@ class UserStore extends BaseStore {
 const User = new UserStore()
 
 User.dispatchToken = Dispatcher.register(payload => {
-  const actions = {
-    LOAD_USERS(payload) {
-      User.setUsers(payload.action.json)
-      User.emitChange()
-    },
+  const action = payload.action
 
-    LOAD_SEARCH_USERS(payload) {
+  switch (action.type) {
+    case ActionTypes.LOAD_USERS:
       User.setUsers(payload.action.json)
       User.emitChange()
-    },
+      break
+
+    case ActionTypes.LOAD_SEARCH_USERS:
+      User.setUsers(payload.action.json)
+      User.emitChange()
+      break
   }
 
-  actions[payload.action.type] && actions[payload.action.type](payload)
+  return true
 })
 
 window.User = User
