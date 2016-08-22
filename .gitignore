@@ -9,12 +9,8 @@
 /node_modules
 public/message_images/*
 !.gitkeep
-public/message_images/11906329_960233084022564_1448528159_a.jpg
-public/message_images/7922109.jpeg
-public/message_images/f28f644d13d498325f703ce020d4ff7f.jpg
-public/message_images/food-712665_640.jpg
-public/message_images/noodles-687180_640.jpg
-public/message_images/spaghetti-863304_640.jpg
+public/user_images/*
+!.gitkeep
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
