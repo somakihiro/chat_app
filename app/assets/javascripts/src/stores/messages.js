@@ -53,7 +53,7 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
         id: Math.floor(Math.random() * 1000000),
         body: payload.action.body,
         to_user_id: payload.action.to_user_id,
-        user_id: currentUserId
+        user_id: currentUserId,
       })
       MessagesStore.emitChange()
     },

@@ -113,7 +113,7 @@ class UserList extends React.Component {
             />
           </form>
           <div className='user-list__item__picture'>
-            <img src={user.image ? '/user_images/' + user.image : 'assets/default_image.jpg'} />
+            <img src={user.image ? '/user_images/' + user.image : '/assets/images/default_image.jpg'} />
           </div>
           <div className='user-list__item__details'>
             <div className='user-list__item__name'>

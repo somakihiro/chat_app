@@ -7,10 +7,10 @@
 # Ignore bundler config.
 /.bundle
 /node_modules
-/app/assets/images
-/public/message_images
-/public/user_images
-/public/assets/javascripts/boot.js
+public/message_images/*
+!.gitkeep
+public/user_images/*
+!.gitkeep
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
