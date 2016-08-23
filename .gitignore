@@ -9,6 +9,8 @@
 /node_modules
 public/message_images/*
 !.gitkeep
+public/user_images/*
+!.gitkeep
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
