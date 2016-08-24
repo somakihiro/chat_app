@@ -27,6 +27,7 @@ class UserList extends React.Component {
     return {
       users: UserStore.getUsers(),
       openChatId: MessagesStore.getOpenChatUserId(),
+      currentUser,
       currentUserId,
     }
   }
@@ -59,7 +60,8 @@ class UserList extends React.Component {
   }
 
   getLastAccess(toUserId) {
-    const lastAccess = _.find(CurrentUserStore.getCurrentUser().accesses, {to_user_id: toUserId})
+    const {currentUser} = this.state
+    const lastAccess = _.find(currentUser.accesses, {to_user_id: toUserId})
     return lastAccess
   }
 
