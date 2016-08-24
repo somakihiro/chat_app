@@ -22,7 +22,7 @@ class App extends React.Component {
     const currentUser = CurrentUserStore.getCurrentUser()
     if (!currentUser) return {}
     const currentUserMessages = currentUser.messages ? currentUser.messages : []
-    const currentUserMessagesToUser = _.filter(currentUserMessages, {'to_user_id': openChatId})
+    const currentUserMessagesToUser = _.filter(currentUserMessages, {to_user_id: openChatId})
     const users = MessagesStore.getUserMessages()
     const openUserMessages = users.messages ? users.messages : []
     const allMessages = _.concat(currentUserMessagesToUser, openUserMessages)
