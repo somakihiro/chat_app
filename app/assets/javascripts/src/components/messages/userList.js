@@ -27,6 +27,7 @@ class UserList extends React.Component {
     return {
       users: UserStore.getUsers(),
       openChatId: MessagesStore.getOpenChatUserId(),
+      currentUser,
       currentUserId,
     }
   }
@@ -34,11 +35,13 @@ class UserList extends React.Component {
   componentDidMount() {
     MessagesStore.onChange(this.onChangeHandler)
     UserStore.onChange(this.onChangeHandler)
+    CurrentUserStore.onChange(this.onChangeHandler)
   }
 
   componentWillUnmount() {
     MessagesStore.offChange(this.onChangeHandler)
     UserStore.offChange(this.onChangeHandler)
+    CurrentUserStore.onChange(this.onChangeHandler)
   }
 
   onStoreChange() {
@@ -46,19 +49,20 @@ class UserList extends React.Component {
   }
 
   changeOpenChat(userId) {
-    MessagesAction.changeOpenChat(userId)
-    CurrentUserAction.loadCurrentUser()
     MessagesAction.loadUserMessages(userId)
-    const userChatAccess = this.getLastAccess.bind(this, userId)
+    const userChatAccess = this.getLastAccess(userId)
     if (userChatAccess) {
       MessagesAction.updateLastAccess(userId, new Date())
     } else {
       MessagesAction.createLastAccess(userId, new Date())
     }
+    CurrentUserAction.loadCurrentUser()
   }
 
   getLastAccess(toUserId) {
-    _.find(CurrentUserStore.getCurrentUser().accesses, {to_user_id: toUserId})
+    const {currentUser} = this.state
+    const lastAccess = _.find(currentUser.accesses, {to_user_id: toUserId})
+    return lastAccess
   }
 
   deleteChatConfirm(e) {
@@ -73,7 +77,7 @@ class UserList extends React.Component {
     const friendUsers = _.map(users, (user) => {
       const messageLength = user.messages.length
       const lastMessage = user.messages[messageLength - 1]
-      const userChatAccess = this.getLastAccess.bind(this, user.id)
+      const userChatAccess = this.getLastAccess(user.id)
       let newMessageIcon
       if (lastMessage) {
         if (!userChatAccess || lastMessage.created_at > userChatAccess.last_access) {
