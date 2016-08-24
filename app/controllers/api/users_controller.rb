@@ -16,9 +16,9 @@ class Api::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @messages = @user.messages.where(to_user_id: current_user.id)
-    @users_json = @user.as_json(include: [:accesses])
-    @users_json[:messages] = @messages
-    render json: @users_json
+    @user_json = @user.as_json(include: [:accesses])
+    @user_json[:messages] = @messages
+    render json: @user_json
   end
 
   def create
