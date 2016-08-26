@@ -5,7 +5,7 @@ class Api::UsersController < ApplicationController
     if !@search_string || @search_string == ""
       @search_users = []
     else
-      @search_users = @users.where("name like ?", "%#{@search_string}%")
+      @search_users = @users.where("name like ?", "#{@search_string}%")
     end
     render json: @search_users
   end
