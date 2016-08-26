@@ -22,10 +22,11 @@ export default {
     })
   },
 
-  loadSearchUsers() {
+  loadSearchUsers(search_string) {
     return new Promise((resolve, reject) => {
       request
       .get(`${APIEndpoints.USERS}/search`)
+      .query({search_string})
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
