@@ -1,5 +1,6 @@
 import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
+import {ActionTypes} from '../constants/app'
 
 class CurrentUserStore extends BaseStore {
   getCurrentUser() {
@@ -15,14 +16,16 @@ class CurrentUserStore extends BaseStore {
 const CurrentUser = new CurrentUserStore()
 
 CurrentUser.dispatchToken = Dispatcher.register(payload => {
-  const actions = {
-    LOAD_CURRENT_USER(payload) {
+  const action = payload.action
+
+  switch (action.type) {
+    case ActionTypes.LOAD_CURRENT_USER:
       CurrentUser.setCurrentUser(payload.action.json)
       CurrentUser.emitChange()
-    },
+      break
   }
 
-  actions[payload.action.type] && actions[payload.action.type](payload)
+  return true
 })
 
 window.CurrentUser = CurrentUser
