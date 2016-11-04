@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import React from 'react'
-import User from '../../stores/users'
+import UserStore from '../../stores/users'
 import Utils from '../../lib/utils'
 
 export default class UserList extends React.Component {
@@ -20,15 +20,15 @@ export default class UserList extends React.Component {
   }
 
   getStateFromStores() {
-    return {users: User.getUsers()}
+    return {users: UserStore.getUsers()}
   }
 
   componentDidMount() {
-    User.onChange(this.onStoreChange.bind(this))
+    UserStore.onChange(this.onStoreChange.bind(this))
   }
 
   componentWillUnmount() {
-    User.offChange(this.onStoreChange.bind(this))
+    UserStore.offChange(this.onStoreChange.bind(this))
   }
 
   onStoreChange() {
@@ -40,20 +40,12 @@ export default class UserList extends React.Component {
   }
 
   render() {
-    const {users} = this.state
-    const {searchString} = this.props
+    const searchUsers = this.state.users
 
-    let allUsers = users
-    const searchUserName = searchString.trim().toLowerCase()
-    if (searchUserName.length > 0) {
-      allUsers = _.filter(allUsers, (user) => {
-        return user.name.toLowerCase().match(searchUserName)
-      })
-    }
     return (
       <ul className='search_user_list'>
         {
-          _.map(allUsers, (user) => {
+          _.map(searchUsers, (user) => {
             return (
               <li className='search_user_list_item' key={user.id}>
                 <div className='search_user_list_result' onClick={this.onSubmitHandler.bind(this, user.id)}>

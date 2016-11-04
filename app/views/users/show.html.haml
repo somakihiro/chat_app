@@ -1,4 +1,6 @@
 .user_profile
+  - if notice
+    = notice
   .user_profile_image
     - if @user.image?
       = image_tag "/user_images/#{@user.image}", class: 'user_profile_image_id'
